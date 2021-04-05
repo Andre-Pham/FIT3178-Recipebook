@@ -1,2 +1,2 @@
-# FIT3175-Recipebook
-Assignment 2 for FIT3175
+# FIT3178-Recipebook
+Assignment 2 for FIT3178
