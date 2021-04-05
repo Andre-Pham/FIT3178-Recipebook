@@ -16,6 +16,8 @@
 		65AFBD63261AED890039CB66 /* Meal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD62261AED890039CB66 /* Meal.swift */; };
 		65AFBD66261AEE790039CB66 /* IngredientMeasurement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD65261AEE790039CB66 /* IngredientMeasurement.swift */; };
 		65AFBD69261AEEAD0039CB66 /* Ingredient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD68261AEEAD0039CB66 /* Ingredient.swift */; };
+		65AFBD6C261AF5130039CB66 /* MyMealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD6B261AF5130039CB66 /* MyMealsTableViewController.swift */; };
+		65AFBD6F261B01460039CB66 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		65AFBD62261AED890039CB66 /* Meal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Meal.swift; sourceTree = "<group>"; };
 		65AFBD65261AEE790039CB66 /* IngredientMeasurement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMeasurement.swift; sourceTree = "<group>"; };
 		65AFBD68261AEEAD0039CB66 /* Ingredient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ingredient.swift; sourceTree = "<group>"; };
+		65AFBD6B261AF5130039CB66 /* MyMealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyMealsTableViewController.swift; sourceTree = "<group>"; };
+		65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +76,8 @@
 				65AFBD62261AED890039CB66 /* Meal.swift */,
 				65AFBD65261AEE790039CB66 /* IngredientMeasurement.swift */,
 				65AFBD68261AEEAD0039CB66 /* Ingredient.swift */,
+				65AFBD6B261AF5130039CB66 /* MyMealsTableViewController.swift */,
+				65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */,
 			);
 			path = recipebook;
 			sourceTree = "<group>";
@@ -149,6 +155,8 @@
 				65AFBD63261AED890039CB66 /* Meal.swift in Sources */,
 				65AFBD66261AEE790039CB66 /* IngredientMeasurement.swift in Sources */,
 				65AFBD69261AEEAD0039CB66 /* Ingredient.swift in Sources */,
+				65AFBD6C261AF5130039CB66 /* MyMealsTableViewController.swift in Sources */,
+				65AFBD6F261B01460039CB66 /* MealTableViewCell.swift in Sources */,
 				65AFBD52261AEC360039CB66 /* ViewController.swift in Sources */,
 				65AFBD4E261AEC360039CB66 /* AppDelegate.swift in Sources */,
 				65AFBD50261AEC360039CB66 /* SceneDelegate.swift in Sources */,

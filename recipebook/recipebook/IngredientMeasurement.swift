@@ -11,7 +11,7 @@ class IngredientMeasurement: NSObject {
     
     // MARK: - Properties
     
-    var name: String
-    var quantity: String
+    //var name: String
+    //var quantity: String
 
 }
