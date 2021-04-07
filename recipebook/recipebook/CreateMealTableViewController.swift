@@ -160,6 +160,27 @@ class CreateMealTableViewController: UITableViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "editMealName" {
+            // Assign the destination ViewController class to a variable to pass
+            // information to its properties
+            let destination = segue.destination as! EditMealNameViewController
+            
+            // Assign the class instance that holds information to a property
+            // within the destination ViewController class
+            destination.previousMealName = self.mealName
+        }
+        else if segue.identifier == "editMealInstructions" {
+            // Assign the destination ViewController class to a variable to pass
+            // information to its properties
+            let destination = segue.destination as! EditMealInstructionsViewController
+            
+            // Assign the class instance that holds information to a property
+            // within the destination ViewController class
+            destination.previousMealInstructions = self.mealInstructions
+        }
+    }
+    
     // MARK: - Actions
     
     @IBAction func saveMeal(_ sender: Any) {

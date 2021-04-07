@@ -21,6 +21,8 @@
 		65AFBD72261B13A00039CB66 /* SearchMealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */; };
 		65AFBD75261D70200039CB66 /* CreateMealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */; };
 		65AFBD78261DA9070039CB66 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD77261DA9070039CB66 /* Popup.swift */; };
+		65AFBD7B261DAD5B0039CB66 /* EditMealNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */; };
+		65AFBD7E261DAD710039CB66 /* EditMealInstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMealsTableViewController.swift; sourceTree = "<group>"; };
 		65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMealTableViewController.swift; sourceTree = "<group>"; };
 		65AFBD77261DA9070039CB66 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealNameViewController.swift; sourceTree = "<group>"; };
+		65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealInstructionsViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 				65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */,
 				65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */,
 				65AFBD77261DA9070039CB66 /* Popup.swift */,
+				65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */,
+				65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */,
 			);
 			path = recipebook;
 			sourceTree = "<group>";
@@ -161,8 +167,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65AFBD7B261DAD5B0039CB66 /* EditMealNameViewController.swift in Sources */,
 				65AFBD63261AED890039CB66 /* Meal.swift in Sources */,
 				65AFBD66261AEE790039CB66 /* IngredientMeasurement.swift in Sources */,
+				65AFBD7E261DAD710039CB66 /* EditMealInstructionsViewController.swift in Sources */,
 				65AFBD69261AEEAD0039CB66 /* Ingredient.swift in Sources */,
 				65AFBD6C261AF5130039CB66 /* MyMealsTableViewController.swift in Sources */,
 				65AFBD72261B13A00039CB66 /* SearchMealsTableViewController.swift in Sources */,

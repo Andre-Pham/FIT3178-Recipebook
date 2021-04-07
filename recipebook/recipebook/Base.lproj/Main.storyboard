@@ -103,6 +103,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="aWI-yQ-VcD" kind="show" identifier="editMealName" id="xv7-zm-Vza"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="mealInstructionsCell" id="sd1-VS-ebw">
                                 <rect key="frame" x="0.0" y="99" width="414" height="43.5"/>
@@ -111,6 +114,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="qZb-BW-Cv5" kind="show" identifier="editMealInstructions" id="IB8-zZ-Dem"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealIngredientCell" textLabel="f9t-XV-jHK" detailTextLabel="tng-HN-aoB" style="IBUITableViewCellStyleValue1" id="qyZ-u0-KrH">
                                 <rect key="frame" x="0.0" y="142.5" width="414" height="43.5"/>
@@ -165,7 +171,7 @@
         <!--Edit Instructions-->
         <scene sceneID="KR3-UW-xLb">
             <objects>
-                <viewController title="Edit Instructions" id="qZb-BW-Cv5" sceneMemberID="viewController">
+                <viewController title="Edit Instructions" id="qZb-BW-Cv5" customClass="EditMealInstructionsViewController" customModule="recipebook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YMw-an-A1J">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -183,20 +189,27 @@
                                 <rect key="frame" x="136" y="334" width="110" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save instruction"/>
+                                <connections>
+                                    <action selector="saveInstructionsButton:" destination="qZb-BW-Cv5" eventType="touchUpInside" id="aFf-xe-YV7"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="NVR-3O-0N7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="u0T-gP-Ejv"/>
+                    <connections>
+                        <outlet property="mealInstructionsTextField" destination="9c1-PN-OND" id="FIh-P0-cRj"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NzA-Yh-GeG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4445" y="815"/>
+            <point key="canvasLocation" x="3374" y="835"/>
         </scene>
         <!--Edit Name-->
         <scene sceneID="ZhO-Sj-wSj">
             <objects>
-                <viewController title="Edit Name" id="aWI-yQ-VcD" sceneMemberID="viewController">
+                <viewController title="Edit Name" id="aWI-yQ-VcD" customClass="EditMealNameViewController" customModule="recipebook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bLx-8k-PG1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -211,11 +224,18 @@
                                 <rect key="frame" x="170" y="342" width="75" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Save name"/>
+                                <connections>
+                                    <action selector="saveNameButton:" destination="aWI-yQ-VcD" eventType="touchUpInside" id="y2P-yz-PJA"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Vus-kU-PKu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="wPb-nb-OFG"/>
+                    <connections>
+                        <outlet property="mealNameTextField" destination="7Df-ty-fxF" id="btV-ln-zaD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTm-52-jZu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
