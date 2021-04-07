@@ -76,6 +76,7 @@ class CreateMealTableViewController: UITableViewController {
             }
             else {
                 cell.textLabel?.text = self.mealName
+                cell.textLabel?.textColor = UIColor.label
             }
             
             return cell
@@ -89,6 +90,7 @@ class CreateMealTableViewController: UITableViewController {
             }
             else {
                 cell.textLabel?.text = self.mealInstructions
+                cell.textLabel?.textColor = UIColor.label
             }
             
             return cell
@@ -169,6 +171,8 @@ class CreateMealTableViewController: UITableViewController {
             // Assign the class instance that holds information to a property
             // within the destination ViewController class
             destination.previousMealName = self.mealName
+            
+            destination.editMealDelegate = self
         }
         else if segue.identifier == "editMealInstructions" {
             // Assign the destination ViewController class to a variable to pass
@@ -178,6 +182,8 @@ class CreateMealTableViewController: UITableViewController {
             // Assign the class instance that holds information to a property
             // within the destination ViewController class
             destination.previousMealInstructions = self.mealInstructions
+            
+            destination.editMealDelegate = self
         }
     }
     
@@ -209,5 +215,26 @@ class CreateMealTableViewController: UITableViewController {
         
         navigationController?.popToRootViewController(animated: true)
         return
+    }
+}
+
+extension CreateMealTableViewController: EditMealDelegate {
+    
+    func updateMealName(_ newMealName: String) {
+        
+        self.mealName = newMealName
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: SECTION_MEAL_NAME)) {
+            cell.textLabel?.text = newMealName
+            self.tableView.reloadSections([SECTION_MEAL_NAME], with: .automatic)
+        }
+    }
+    
+    func updateMealInstructions(_ newMealInstructions: String) {
+        
+        self.mealInstructions = newMealInstructions
+        if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: SECTION_MEAL_INSTRUCTIONS)) {
+            cell.textLabel?.text = newMealInstructions
+            self.tableView.reloadSections([SECTION_MEAL_INSTRUCTIONS], with: .automatic)
+        }
     }
 }

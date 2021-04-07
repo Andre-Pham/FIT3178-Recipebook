@@ -11,6 +11,10 @@ class EditMealInstructionsViewController: UIViewController {
     
     // MARK: - Properties
     
+    // Delegates
+    weak var editMealDelegate: EditMealDelegate?
+    
+    // Class properties
     var previousMealInstructions: String?
     
     // MARK: - Outlets
@@ -21,11 +25,15 @@ class EditMealInstructionsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Load name from CreateMealTableViewController
+        mealInstructionsTextField.text = self.previousMealInstructions
     }
     
     // MARK: - Actions
     
     @IBAction func saveInstructionsButton(_ sender: Any) {
+        editMealDelegate?.updateMealInstructions(self.mealInstructionsTextField.text ?? "")
         navigationController?.popViewController(animated: true)
         return
     }
