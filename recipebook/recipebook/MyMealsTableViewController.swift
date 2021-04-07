@@ -92,4 +92,20 @@ class MyMealsTableViewController: UITableViewController {
 
         return false
     }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete && indexPath.section == SECTION_SHOWN_MEALS {
+            tableView.performBatchUpdates(
+                {
+                    // Remove meal from shownMeals
+                    self.shownMeals.remove(at: indexPath.row)
+                    // Delete the Row from the Table View
+                    self.tableView.deleteRows(at: [indexPath], with: .fade)
+                    // Update the Info Section
+                    self.tableView.reloadSections([SECTION_SHOWN_MEALS, SECTION_MEAL_COUNT], with: .automatic)
+                },
+                completion: nil
+            )
+        }
+    }
 }
