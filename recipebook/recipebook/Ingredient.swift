@@ -11,7 +11,7 @@ class Ingredient: NSObject {
     
     // MARK: - Properties
     
-    //var name: String
-    //var ingredientDescription: String
+    var name: String?
+    var ingredientDescription: String?
 
 }

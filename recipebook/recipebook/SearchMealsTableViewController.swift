@@ -93,12 +93,33 @@ class SearchMealsTableViewController: UITableViewController {
         return false
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "searchMealSegue" {
+            // Retrieve meal from cell being selected
+            // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            let meal = shownMeals[tableView.indexPathForSelectedRow!.row]
+            
+            // Assign the destination ViewController class to a variable to pass
+            // information to its properties
+            let destination = segue.destination as! CreateMealTableViewController
+            
+            // Assign the class instance that holds information to a property
+            // within the destination ViewController class
+            destination.mealName = meal.name
+            destination.mealInstructions = meal.instructions
+            destination.mealIngredients = meal.ingredients
+        }
+    }
+    
     // MARK: - Class Methods
     
     func retrieveMeals() {
         // Testing
-        let meal1 = Meal(name: "beans", instructions: "pat the bean")
-        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.")
+        let ingredient1 = IngredientMeasurement(name: "ingedient1", quantity: "lots")
+        let ingredient2 = IngredientMeasurement(name: "ingedient2", quantity: "little")
+        
+        let meal1 = Meal(name: "beans", instructions: "pat the bean", ingredients: [ingredient1])
+        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.", ingredients: [ingredient1, ingredient2])
         
         self.retrievedMeals.append(meal1)
         self.retrievedMeals.append(meal2)
@@ -118,7 +139,7 @@ extension SearchMealsTableViewController: UISearchResultsUpdating {
         if searchText.count > 0 {
             self.shownMeals = self.retrievedMeals.filter(
                 {
-                    (meal: Meal) -> Bool in return (meal.name?.lowercased().contains(searchText) ?? false)
+                    (meal: Meal) -> Bool in return (meal.name.lowercased().contains(searchText) ?? false)
                 }
             )
         }

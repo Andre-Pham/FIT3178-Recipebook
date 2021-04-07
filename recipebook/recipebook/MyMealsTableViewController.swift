@@ -28,8 +28,11 @@ class MyMealsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // Testing
-        let meal1 = Meal(name: "beans", instructions: "pat the bean")
-        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.")
+        let ingredient1 = IngredientMeasurement(name: "ingedient1", quantity: "lots")
+        let ingredient2 = IngredientMeasurement(name: "ingedient2", quantity: "little")
+        
+        let meal1 = Meal(name: "beans", instructions: "pat the bean", ingredients: [ingredient1])
+        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.", ingredients: [ingredient1, ingredient2])
         
         self.shownMeals.append(meal1)
         self.shownMeals.append(meal2)
