@@ -20,6 +20,7 @@
 		65AFBD6F261B01460039CB66 /* MealTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */; };
 		65AFBD72261B13A00039CB66 /* SearchMealsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */; };
 		65AFBD75261D70200039CB66 /* CreateMealTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */; };
+		65AFBD78261DA9070039CB66 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD77261DA9070039CB66 /* Popup.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealTableViewCell.swift; sourceTree = "<group>"; };
 		65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMealsTableViewController.swift; sourceTree = "<group>"; };
 		65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMealTableViewController.swift; sourceTree = "<group>"; };
+		65AFBD77261DA9070039CB66 /* Popup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 				65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */,
 				65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */,
 				65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */,
+				65AFBD77261DA9070039CB66 /* Popup.swift */,
 			);
 			path = recipebook;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 				65AFBD52261AEC360039CB66 /* ViewController.swift in Sources */,
 				65AFBD4E261AEC360039CB66 /* AppDelegate.swift in Sources */,
 				65AFBD75261D70200039CB66 /* CreateMealTableViewController.swift in Sources */,
+				65AFBD78261DA9070039CB66 /* Popup.swift in Sources */,
 				65AFBD50261AEC360039CB66 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

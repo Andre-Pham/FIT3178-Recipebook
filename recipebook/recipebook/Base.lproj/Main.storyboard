@@ -150,7 +150,13 @@
                             <outlet property="delegate" destination="N5E-7c-iyK" id="W2G-Qw-8Je"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Create New Meal" id="Ghz-Dm-G85"/>
+                    <navigationItem key="navigationItem" title="Create New Meal" id="Ghz-Dm-G85">
+                        <barButtonItem key="rightBarButtonItem" title="Save" id="8aB-9C-P8r">
+                            <connections>
+                                <action selector="saveMeal:" destination="N5E-7c-iyK" id="O2O-r2-8gZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pPL-jY-K6D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

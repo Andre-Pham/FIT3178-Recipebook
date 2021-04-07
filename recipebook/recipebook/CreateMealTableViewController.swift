@@ -115,13 +115,14 @@ class CreateMealTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ADD_INGREDIENT, for: indexPath)
             
             cell.textLabel?.text = "Add Ingredient"
+            cell.textLabel?.textColor = UIColor(named: "defaultCellContent")
             
             return cell
         }
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == SECTION_ADD_INGREDIENT {
+        if indexPath.section == SECTION_MEAL_INGREDIENTS {
             return true
         }
 
@@ -137,7 +138,7 @@ class CreateMealTableViewController: UITableViewController {
                     // Delete the Row from the Table View
                     self.tableView.deleteRows(at: [indexPath], with: .fade)
                     // Update the Info Section
-                    self.tableView.reloadSections([0, 1, 2, 3], with: .automatic)
+                    self.tableView.reloadSections([SECTION_MEAL_INGREDIENTS], with: .automatic)
                 },
                 completion: nil
             )
@@ -157,5 +158,35 @@ class CreateMealTableViewController: UITableViewController {
             default:
                 return nil
         }
+    }
+    
+    // MARK: - Actions
+    
+    @IBAction func saveMeal(_ sender: Any) {
+        // Validation
+        var errorMessages = [String]()
+        if self.mealName.count == 0 {
+            errorMessages.append("has a name")
+        }
+        if self.mealInstructions.count == 0 {
+            errorMessages.append("has one or more instructions")
+        }
+        if self.mealIngredients.count == 0 {
+            errorMessages.append("has one or more ingredients")
+        }
+        if errorMessages.count > 0 {
+            var errorMessage: String
+            if errorMessages.count > 1 {
+                let firstErrors = errorMessages[0...(errorMessages.count-2)].joined(separator: ", ")
+                errorMessage = "Please ensure the meal \(firstErrors) and \(errorMessages[errorMessages.count-1])."
+            }
+            else {
+                errorMessage = "Please ensure the meal \(errorMessages[0])."
+            }
+            Popup.displayPopup(title: "Invalid Meal", message: errorMessage, viewController: self)
+        }
+        
+        navigationController?.popToRootViewController(animated: true)
+        return
     }
 }
