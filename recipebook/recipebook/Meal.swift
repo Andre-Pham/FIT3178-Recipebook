@@ -11,7 +11,7 @@ class Meal: NSObject {
 
     // MARK: - Properties
     
-    var name: String
+    var name: String?
     var instructions: String
     //var ingredients: [IngredientMeasurement]
     

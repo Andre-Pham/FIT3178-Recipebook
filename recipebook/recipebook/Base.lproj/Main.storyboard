@@ -214,16 +214,43 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealShownCell" id="hYo-47-V2v">
-                                <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealShownCell" rowHeight="186" id="hYo-47-V2v" customClass="MealTableViewCell" customModule="recipebook" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="186"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hYo-47-V2v" id="n7b-bE-sVq">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="186"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Breakfast Potatoes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L52-BX-Cc0">
+                                            <rect key="frame" x="24" y="15" width="366" height="24"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Before you do anything, freeze your bacon slices that way when you're ready bla bla bla bla bla bla bla bla bla bla" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LIe-MG-5Z3">
+                                            <rect key="frame" x="24" y="47" width="366" height="61"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="L52-BX-Cc0" firstAttribute="top" secondItem="n7b-bE-sVq" secondAttribute="topMargin" constant="4" id="6QQ-Eh-LBD"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="LIe-MG-5Z3" secondAttribute="trailing" constant="4" id="MIU-JT-URW"/>
+                                        <constraint firstAttribute="bottomMargin" secondItem="LIe-MG-5Z3" secondAttribute="bottom" constant="4" id="XoX-3n-qnm"/>
+                                        <constraint firstItem="LIe-MG-5Z3" firstAttribute="leading" secondItem="n7b-bE-sVq" secondAttribute="leadingMargin" constant="4" id="Zey-wB-o7D"/>
+                                        <constraint firstItem="L52-BX-Cc0" firstAttribute="leading" secondItem="n7b-bE-sVq" secondAttribute="leadingMargin" constant="4" id="kCn-1A-VJh"/>
+                                        <constraint firstAttribute="trailingMargin" secondItem="L52-BX-Cc0" secondAttribute="trailing" constant="4" id="lCu-eD-v0S"/>
+                                        <constraint firstItem="LIe-MG-5Z3" firstAttribute="top" secondItem="L52-BX-Cc0" secondAttribute="bottom" constant="8" id="tT5-k1-EUd"/>
+                                    </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="labelMatchingMealDescription" destination="LIe-MG-5Z3" id="sJf-wn-69R"/>
+                                    <outlet property="labelMatchingMealTitle" destination="L52-BX-Cc0" id="rwg-th-GW1"/>
+                                </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="newMealCell" id="lty-XP-GuC">
-                                <rect key="frame" x="0.0" y="99" width="414" height="43.5"/>
+                                <rect key="frame" x="0.0" y="241.5" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="lty-XP-GuC" id="7TY-qf-68X">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
@@ -243,7 +270,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ytu-1j-2l8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2420" y="106"/>
+            <point key="canvasLocation" x="2418.840579710145" y="105.80357142857143"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fCe-Xm-ysj">

@@ -13,6 +13,8 @@ class MealTableViewCell: UITableViewCell {
     
     @IBOutlet weak var labelMealTitle: UILabel!
     @IBOutlet weak var labelMealDescription: UILabel!
+    @IBOutlet weak var labelMatchingMealTitle: UILabel!
+    @IBOutlet weak var labelMatchingMealDescription: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

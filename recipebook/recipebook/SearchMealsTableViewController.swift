@@ -21,11 +21,23 @@ class SearchMealsTableViewController: UITableViewController {
     
     // Class properties
     var shownMeals: [Meal] = []
+    var retrievedMeals: [Meal] = []
     
     // MARK: - TableView Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        retrieveMeals()
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Meals"
+        navigationItem.searchController = searchController
+        
+        // Ensure search is always visible
+        navigationItem.hidesSearchBarWhenScrolling = false
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,8 +65,8 @@ class SearchMealsTableViewController: UITableViewController {
             
             let meal = shownMeals[indexPath.row]
             
-            cell.labelMealTitle?.text = meal.name
-            cell.labelMealDescription?.text = meal.instructions
+            cell.labelMatchingMealTitle?.text = meal.name
+            cell.labelMatchingMealDescription?.text = meal.instructions
             
             return cell
         }
@@ -81,4 +93,39 @@ class SearchMealsTableViewController: UITableViewController {
         return false
     }
     
+    // MARK: - Class Methods
+    
+    func retrieveMeals() {
+        // Testing
+        let meal1 = Meal(name: "beans", instructions: "pat the bean")
+        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.")
+        
+        self.retrievedMeals.append(meal1)
+        self.retrievedMeals.append(meal2)
+        // End testing
+    }
+}
+
+// MARK: - Protocol Extensions
+
+extension SearchMealsTableViewController: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        // Called every time a change is detected in the search bar
+        guard let searchText = searchController.searchBar.text?.lowercased() else {
+            return
+        }
+        // If user has searched anything
+        if searchText.count > 0 {
+            self.shownMeals = self.retrievedMeals.filter(
+                {
+                    (meal: Meal) -> Bool in return (meal.name?.lowercased().contains(searchText) ?? false)
+                }
+            )
+        }
+        else {
+            shownMeals.removeAll()
+        }
+        
+        tableView.reloadData()
+    }
 }
