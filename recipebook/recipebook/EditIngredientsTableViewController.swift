@@ -64,9 +64,10 @@ class EditIngredientsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        print(indexPath.row)
+        
         // https://stackoverflow.com/questions/30773529/open-new-view-controller-by-clicking-cell-in-table-view-swift-ios
         let destination = self.storyboard?.instantiateViewController(withIdentifier: "ingredientDescription") as! IngredientDescriptionViewController
+        destination.ingredient = self.ingredients[indexPath.row]
         self.navigationController?.pushViewController(destination, animated: true)
     }
 }
