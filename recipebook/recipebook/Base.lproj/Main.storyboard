@@ -149,6 +149,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="383" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Icf-0a-Kht" kind="show" id="i7s-Uc-G0u"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -167,6 +170,35 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pPL-jY-K6D" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3375" y="106"/>
+        </scene>
+        <!--Edit Ingredients-->
+        <scene sceneID="YBm-4v-nqg">
+            <objects>
+                <tableViewController title="Edit Ingredients" id="Icf-0a-Kht" customClass="EditIngredientsTableViewController" customModule="recipebook" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="gUX-qY-Fdw">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="detailButton" indentationWidth="10" reuseIdentifier="ingredientCell" id="mNW-Ui-Oh7">
+                                <rect key="frame" x="0.0" y="55.5" width="414" height="43.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="mNW-Ui-Oh7" id="K9E-m1-hHs">
+                                    <rect key="frame" x="0.0" y="0.0" width="370" height="43.5"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="Icf-0a-Kht" id="T9R-Bb-KGC"/>
+                            <outlet property="delegate" destination="Icf-0a-Kht" id="Vld-nP-o18"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="RlU-Dg-fgg"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVj-Vs-K7J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4238" y="452"/>
         </scene>
         <!--Edit Instructions-->
         <scene sceneID="KR3-UW-xLb">
@@ -239,37 +271,23 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hTm-52-jZu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4446" y="106"/>
+            <point key="canvasLocation" x="4238" y="-208"/>
         </scene>
-        <!--Ingredient Detail-->
+        <!--Ingredient Description-->
         <scene sceneID="0gr-f8-MbA">
             <objects>
-                <viewController title="Ingredient Detail" id="6bE-ss-bmH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ingredientDescription" title="Ingredient Description" id="6bE-ss-bmH" customClass="IngredientDescriptionViewController" customModule="recipebook" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xyc-p1-BMm">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="RfH-g3-G4O"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="wPO-5G-zON"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XyT-FI-Xkw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5464" y="106"/>
-        </scene>
-        <!--Add Ingredient-->
-        <scene sceneID="sH3-Wq-eb0">
-            <objects>
-                <viewController title="Add Ingredient" id="hip-7R-fKc" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="1an-dK-AsZ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="LeR-ch-UpU"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TMT-Hx-q5y" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4445" y="-611"/>
+            <point key="canvasLocation" x="5277" y="451"/>
         </scene>
         <!--Search Meals-->
         <scene sceneID="Eku-4g-bdm">

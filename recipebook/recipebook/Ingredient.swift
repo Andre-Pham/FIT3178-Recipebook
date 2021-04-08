@@ -14,4 +14,10 @@ class Ingredient: NSObject {
     var name: String?
     var ingredientDescription: String?
 
+    // MARK: - Constructor
+    
+    init(name: String, ingredientDescription: String) {
+        self.name = name
+        self.ingredientDescription = ingredientDescription
+    }
 }
