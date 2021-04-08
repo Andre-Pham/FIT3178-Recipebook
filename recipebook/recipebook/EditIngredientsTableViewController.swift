@@ -17,6 +17,9 @@ class EditIngredientsTableViewController: UITableViewController {
     // Sections
     let SECTION_INGREDIENTS: Int = 0
     
+    // Delegates
+    weak var editMealDelegate: EditMealDelegate?
+    
     // Class properties
     var ingredients: [Ingredient] = []
     
@@ -69,5 +72,53 @@ class EditIngredientsTableViewController: UITableViewController {
         let destination = self.storyboard?.instantiateViewController(withIdentifier: "ingredientDescription") as! IngredientDescriptionViewController
         destination.ingredient = self.ingredients[indexPath.row]
         self.navigationController?.pushViewController(destination, animated: true)
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // When the user selects a row within the Table View
+        
+        if let ingredientName = ingredients[indexPath.row].name {
+            self.displayAddMeasurementPopup(ingredientName: ingredientName)
+        }
+
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func displayAddMeasurementPopup(ingredientName: String){
+        // Define alert
+        let alertController = UIAlertController(
+            title: "Add measurement",
+            message: "Enter measurement for \(ingredientName)",
+            preferredStyle: .alert
+        )
+        // Add "done" button
+        alertController.addAction(
+            UIAlertAction(title: "Done", style: .default) { (_) in
+                if let textField = alertController.textFields?.first, let textInput = textField.text {
+                    // After the user selects "done"
+                    let trimmedTextInput = textInput.trimmingCharacters(in: .whitespacesAndNewlines)
+                    
+                    // Validation
+                    if trimmedTextInput == "" {
+                        Popup.displayPopup(title: "Empty Measurement", message: "You must enter a measurement for \(ingredientName)", viewController: self)
+                        return
+                    }
+                    
+                    let newIngredient = IngredientMeasurement(name: ingredientName, quantity: trimmedTextInput)
+                    self.editMealDelegate?.updateMealIngredients(newIngredient)
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
+        )
+        // Add "cancel" button
+        alertController.addAction(
+            UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
+        )
+        // Add text field
+        alertController.addTextField {
+            (textField) in textField.placeholder = "Measurement"
+        }
+        // Display popup
+        self.present(alertController, animated: true, completion: nil)
     }
 }

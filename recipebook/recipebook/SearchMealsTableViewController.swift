@@ -139,7 +139,7 @@ extension SearchMealsTableViewController: UISearchResultsUpdating {
         if searchText.count > 0 {
             self.shownMeals = self.retrievedMeals.filter(
                 {
-                    (meal: Meal) -> Bool in return (meal.name.lowercased().contains(searchText) ?? false)
+                    (meal: Meal) -> Bool in return meal.name.lowercased().contains(searchText)
                 }
             )
         }

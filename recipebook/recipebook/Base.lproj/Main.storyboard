@@ -150,7 +150,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Icf-0a-Kht" kind="show" id="i7s-Uc-G0u"/>
+                                    <segue destination="Icf-0a-Kht" kind="show" identifier="editMealIngredients" id="i7s-Uc-G0u"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

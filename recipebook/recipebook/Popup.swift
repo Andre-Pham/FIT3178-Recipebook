@@ -8,26 +8,27 @@
 import UIKit
 
 class Popup: NSObject {
-    static func displayPopup(title: String, message: String, viewController: UIViewController) -> Void {
-      // Define alert
-      let alertController = UIAlertController(
-        title: title,
-        message: message,
-        preferredStyle: .alert
-      )
-      // Add interaction to alert
-      alertController.addAction(
-        UIAlertAction(
-          title: "Dismiss",
-          style: .default,
-          handler: nil
+    
+    static func displayPopup(title: String, message: String, viewController: UIViewController) {
+        // Define alert
+        let alertController = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .alert
         )
-      )
-      // Present alert
-      viewController.present(
-        alertController,
-        animated: true,
-        completion: nil
-      )
+        // Add interaction to alert
+        alertController.addAction(
+            UIAlertAction(
+                title: "Dismiss",
+                style: .default,
+                handler: nil
+            )
+        )
+        // Present alert
+        viewController.present(
+            alertController,
+            animated: true,
+            completion: nil
+        )
     }
 }

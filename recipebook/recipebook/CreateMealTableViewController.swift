@@ -107,6 +107,7 @@ class CreateMealTableViewController: UITableViewController {
                 let ingredient = mealIngredients[indexPath.row]
                 
                 cell.textLabel?.text = ingredient.name
+                cell.textLabel?.textColor = UIColor.label
                 cell.detailTextLabel?.text = ingredient.quantity
             }
             
@@ -185,6 +186,14 @@ class CreateMealTableViewController: UITableViewController {
             
             destination.editMealDelegate = self
         }
+        // segue.identifier == "editMealIngredients"
+        else {
+            // Assign the destination ViewController class to a variable to pass
+            // information to its properties
+            let destination = segue.destination as! EditIngredientsTableViewController
+            
+            destination.editMealDelegate = self
+        }
     }
     
     // MARK: - Actions
@@ -236,5 +245,11 @@ extension CreateMealTableViewController: EditMealDelegate {
             cell.textLabel?.text = newMealInstructions
             self.tableView.reloadSections([SECTION_MEAL_INSTRUCTIONS], with: .automatic)
         }
+    }
+    
+    func updateMealIngredients(_ newIngredient: IngredientMeasurement) {
+        
+        self.mealIngredients.append(newIngredient)
+        self.tableView.reloadSections([SECTION_MEAL_INGREDIENTS], with: .automatic)
     }
 }
