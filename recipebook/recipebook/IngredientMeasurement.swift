@@ -11,7 +11,13 @@ class IngredientMeasurement: NSObject {
     
     // MARK: - Properties
     
-    //var name: String
-    //var quantity: String
-
+    var name: String?
+    var quantity: String?
+    
+    // MARK: - Constructor
+    
+    init(name: String, quantity: String) {
+        self.name = name
+        self.quantity = quantity
+    }
 }

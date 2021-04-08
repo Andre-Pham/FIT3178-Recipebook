@@ -13,13 +13,13 @@ class Meal: NSObject {
     
     var name: String
     var instructions: String
-    //var ingredients: [IngredientMeasurement]
+    var ingredients: [IngredientMeasurement]
     
     // MARK: - Constructor
     
-    init(name: String, instructions: String) {
+    init(name: String, instructions: String, ingredients: [IngredientMeasurement]) {
         self.name = name
         self.instructions = instructions
-        //self.ingredients = ingredients
+        self.ingredients = ingredients
     }
 }
