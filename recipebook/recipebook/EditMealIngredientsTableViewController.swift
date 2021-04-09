@@ -20,6 +20,10 @@ class EditMealIngredientsTableViewController: UITableViewController {
     // Delegates
     weak var editMealDelegate: EditMealDelegate?
     
+    // Core Data
+    var listenerType = ListenerType.ingredient
+    weak var databaseController: DatabaseProtocol?
+    
     // Class properties
     var ingredients: [Ingredient] = []
     
@@ -27,6 +31,32 @@ class EditMealIngredientsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+    }
+    
+    // Calls before the view appears on screen
+    override func viewWillAppear(_ animated: Bool) {
+        // Adds the class to the database listeners
+        // (to recieve updates from the database)
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+        
+        // Testing
+        if self.ingredients.count == 0 {
+            let _ = databaseController?.addIngredient(name: "ingredient1", ingredientDescription: "tasty")
+            let _ = databaseController?.addIngredient(name: "ingredient2", ingredientDescription: "yuck")
+        }
+        // End testing
+    }
+    
+    // Calls before the view disappears on screen
+    override func viewWillDisappear(_ animated: Bool) {
+        // Removes the class from the database listeners
+        // (to not recieve updates from the database)
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -110,4 +140,17 @@ class EditMealIngredientsTableViewController: UITableViewController {
         // Display popup
         self.present(alertController, animated: true, completion: nil)
     }
+}
+
+extension EditMealIngredientsTableViewController: DatabaseListener {
+    
+    func onAnyMealChange(change: DatabaseChange, meals: [Meal]) {
+        // Pass
+    }
+    
+    func onAnyIngredientChange(change: DatabaseChange, ingredients: [Ingredient]) {
+        self.ingredients = ingredients
+        tableView.reloadData()
+    }
+    
 }

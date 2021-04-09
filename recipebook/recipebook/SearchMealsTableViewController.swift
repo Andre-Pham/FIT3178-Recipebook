@@ -112,7 +112,6 @@ class SearchMealsTableViewController: UITableViewController {
                     destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
                 }
             }
-            //destination.mealIngredients = meal.ingredients?.allObjects as! [IngredientMeasurement]
         }
     }
     

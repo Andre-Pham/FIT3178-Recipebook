@@ -215,9 +215,9 @@ class CreateMealTableViewController: UITableViewController {
         if self.mealInstructions.count == 0 {
             errorMessages.append("has one or more instructions")
         }
-        //if self.mealIngredients.count == 0 {
-        //    errorMessages.append("has one or more ingredients")
-        //}
+        if self.mealIngredients.count == 0 {
+            errorMessages.append("has one or more ingredients")
+        }
         if errorMessages.count > 0 {
             var errorMessage: String
             if errorMessages.count > 1 {
@@ -228,6 +228,7 @@ class CreateMealTableViewController: UITableViewController {
                 errorMessage = "Please ensure the meal \(errorMessages[0])."
             }
             Popup.displayPopup(title: "Invalid Meal", message: errorMessage, viewController: self)
+            return
         }
         
         // Save to core data
