@@ -21,7 +21,7 @@
 		65AFBD7B261DAD5B0039CB66 /* EditMealNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */; };
 		65AFBD7E261DAD710039CB66 /* EditMealInstructionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */; };
 		65AFBD81261DCBA10039CB66 /* EditMealDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD80261DCBA10039CB66 /* EditMealDelegate.swift */; };
-		65AFBD84261EBA910039CB66 /* EditIngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD83261EBA910039CB66 /* EditIngredientsTableViewController.swift */; };
+		65AFBD84261EBA910039CB66 /* EditMealIngredientsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD83261EBA910039CB66 /* EditMealIngredientsTableViewController.swift */; };
 		65AFBD87261EC4240039CB66 /* IngredientDescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD86261EC4240039CB66 /* IngredientDescriptionViewController.swift */; };
 		65AFBD8E261F445C0039CB66 /* RecipebookDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD8C261F445C0039CB66 /* RecipebookDataModel.xcdatamodeld */; };
 		65AFBDA0261F73780039CB66 /* MulticastDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBD9F261F73780039CB66 /* MulticastDelegate.swift */; };
@@ -33,6 +33,7 @@
 		65AFBDC1261F78C10039CB66 /* Meal+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDBB261F78C10039CB66 /* Meal+CoreDataProperties.swift */; };
 		65AFBDC2261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */; };
 		65AFBDC3261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */; };
+		65AFBDC726202B500039CB66 /* IngredientMeasurementData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,7 +53,7 @@
 		65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealNameViewController.swift; sourceTree = "<group>"; };
 		65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealInstructionsViewController.swift; sourceTree = "<group>"; };
 		65AFBD80261DCBA10039CB66 /* EditMealDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealDelegate.swift; sourceTree = "<group>"; };
-		65AFBD83261EBA910039CB66 /* EditIngredientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditIngredientsTableViewController.swift; sourceTree = "<group>"; };
+		65AFBD83261EBA910039CB66 /* EditMealIngredientsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditMealIngredientsTableViewController.swift; sourceTree = "<group>"; };
 		65AFBD86261EC4240039CB66 /* IngredientDescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientDescriptionViewController.swift; sourceTree = "<group>"; };
 		65AFBD8D261F445C0039CB66 /* RecipebookDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RecipebookDataModel.xcdatamodel; sourceTree = "<group>"; };
 		65AFBD9F261F73780039CB66 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +65,7 @@
 		65AFBDBB261F78C10039CB66 /* Meal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Meal+CoreDataProperties.swift"; path = "recipebook/DataModel/Meal+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientMeasurement+CoreDataClass.swift"; path = "recipebook/DataModel/IngredientMeasurement+CoreDataClass.swift"; sourceTree = "<group>"; };
 		65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientMeasurement+CoreDataProperties.swift"; path = "recipebook/DataModel/IngredientMeasurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMeasurementData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -119,8 +121,9 @@
 				65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */,
 				65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */,
 				65AFBD80261DCBA10039CB66 /* EditMealDelegate.swift */,
-				65AFBD83261EBA910039CB66 /* EditIngredientsTableViewController.swift */,
+				65AFBD83261EBA910039CB66 /* EditMealIngredientsTableViewController.swift */,
 				65AFBD86261EC4240039CB66 /* IngredientDescriptionViewController.swift */,
+				65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */,
 			);
 			path = recipebook;
 			sourceTree = "<group>";
@@ -227,7 +230,8 @@
 				65AFBD72261B13A00039CB66 /* SearchMealsTableViewController.swift in Sources */,
 				65AFBDA4261F743F0039CB66 /* DatabaseProtocol.swift in Sources */,
 				65AFBD8E261F445C0039CB66 /* RecipebookDataModel.xcdatamodeld in Sources */,
-				65AFBD84261EBA910039CB66 /* EditIngredientsTableViewController.swift in Sources */,
+				65AFBD84261EBA910039CB66 /* EditMealIngredientsTableViewController.swift in Sources */,
+				65AFBDC726202B500039CB66 /* IngredientMeasurementData.swift in Sources */,
 				65AFBD6F261B01460039CB66 /* MealTableViewCell.swift in Sources */,
 				65AFBD52261AEC360039CB66 /* ViewController.swift in Sources */,
 				65AFBDBE261F78C10039CB66 /* Ingredient+CoreDataClass.swift in Sources */,

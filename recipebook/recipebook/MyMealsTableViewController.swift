@@ -19,6 +19,10 @@ class MyMealsTableViewController: UITableViewController {
     let SECTION_SHOWN_MEALS: Int = 0
     let SECTION_MEAL_COUNT: Int = 1
     
+    // Core Data
+    var listenerType = ListenerType.meal
+    weak var databaseController: DatabaseProtocol?
+    
     // Class properties
     var shownMeals: [Meal] = []
     
@@ -26,6 +30,11 @@ class MyMealsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Sets property databaseController to reference to the databaseController
+        // from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
         // Testing
         /*
@@ -39,6 +48,22 @@ class MyMealsTableViewController: UITableViewController {
         self.shownMeals.append(meal2)
         */
         // End testing
+    }
+    
+    // Calls before the view appears on screen
+    override func viewWillAppear(_ animated: Bool) {
+        // Adds the class to the database listeners
+        // (to recieve updates from the database)
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+    }
+    
+    // Calls before the view disappears on screen
+    override func viewWillDisappear(_ animated: Bool) {
+        // Removes the class from the database listeners
+        // (to not recieve updates from the database)
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -113,4 +138,17 @@ class MyMealsTableViewController: UITableViewController {
             )
         }
     }
+}
+
+extension MyMealsTableViewController: DatabaseListener {
+    
+    func onAnyMealChange(change: DatabaseChange, meals: [Meal]) {
+        self.shownMeals = meals
+        tableView.reloadData()
+    }
+    
+    func onAnyIngredientChange(change: DatabaseChange, ingredients: [Ingredient]) {
+        // pass
+    }
+
 }

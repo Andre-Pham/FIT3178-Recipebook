@@ -23,15 +23,23 @@ class CreateMealTableViewController: UITableViewController {
     let SECTION_MEAL_INGREDIENTS: Int = 2
     let SECTION_ADD_INGREDIENT: Int = 3
     
+    // Core Data
+    weak var databaseController: DatabaseProtocol?
+    
     // Class properties
     var mealName: String = ""
     var mealInstructions: String = ""
-    var mealIngredients: [IngredientMeasurement] = []
+    var mealIngredients: [IngredientMeasurementData] = []
     
     // MARK: - TableView Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Sets property databaseController to reference to the databaseController
+        // from AppDelegate
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
         
         if self.mealName.count != 0 {
             self.title = self.mealName
@@ -190,7 +198,7 @@ class CreateMealTableViewController: UITableViewController {
         else {
             // Assign the destination ViewController class to a variable to pass
             // information to its properties
-            let destination = segue.destination as! EditIngredientsTableViewController
+            let destination = segue.destination as! EditMealIngredientsTableViewController
             
             destination.editMealDelegate = self
         }
@@ -207,9 +215,9 @@ class CreateMealTableViewController: UITableViewController {
         if self.mealInstructions.count == 0 {
             errorMessages.append("has one or more instructions")
         }
-        if self.mealIngredients.count == 0 {
-            errorMessages.append("has one or more ingredients")
-        }
+        //if self.mealIngredients.count == 0 {
+        //    errorMessages.append("has one or more ingredients")
+        //}
         if errorMessages.count > 0 {
             var errorMessage: String
             if errorMessages.count > 1 {
@@ -220,6 +228,15 @@ class CreateMealTableViewController: UITableViewController {
                 errorMessage = "Please ensure the meal \(errorMessages[0])."
             }
             Popup.displayPopup(title: "Invalid Meal", message: errorMessage, viewController: self)
+        }
+        
+        // Save to core data
+        if let newMeal = databaseController?.addMeal(name: self.mealName, instructions: self.mealInstructions) {
+            for ingredient in self.mealIngredients {
+                let name = ingredient.name!
+                let quantity = ingredient.quantity!
+                let _ = databaseController?.addIngredientMeasurementToMeal(name: name, quantity: quantity, meal: newMeal)
+            }
         }
         
         navigationController?.popToRootViewController(animated: true)
@@ -247,7 +264,7 @@ extension CreateMealTableViewController: EditMealDelegate {
         }
     }
     
-    func updateMealIngredients(_ newIngredient: IngredientMeasurement) {
+    func updateMealIngredients(_ newIngredient: IngredientMeasurementData) {
         
         self.mealIngredients.append(newIngredient)
         self.tableView.reloadSections([SECTION_MEAL_INGREDIENTS], with: .automatic)

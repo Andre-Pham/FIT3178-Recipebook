@@ -107,7 +107,12 @@ class SearchMealsTableViewController: UITableViewController {
             // within the destination ViewController class
             destination.mealName = meal.name ?? ""
             destination.mealInstructions = meal.instructions ?? ""
-            destination.mealIngredients = meal.ingredients?.allObjects as! [IngredientMeasurement]
+            if let ingredients = meal.ingredients?.allObjects as? [IngredientMeasurement] {
+                for ingredient in ingredients {
+                    destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
+                }
+            }
+            //destination.mealIngredients = meal.ingredients?.allObjects as! [IngredientMeasurement]
         }
     }
     

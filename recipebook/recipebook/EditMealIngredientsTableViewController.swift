@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditIngredientsTableViewController: UITableViewController {
+class EditMealIngredientsTableViewController: UITableViewController {
 
     // MARK: - Properties
     
@@ -93,7 +93,7 @@ class EditIngredientsTableViewController: UITableViewController {
                         return
                     }
                     
-                    let newIngredient = IngredientMeasurement(name: ingredientName, quantity: trimmedTextInput)
+                    let newIngredient = IngredientMeasurementData(name: ingredientName, quantity: trimmedTextInput)
                     self.editMealDelegate?.updateMealIngredients(newIngredient)
                     self.navigationController?.popViewController(animated: true)
                 }

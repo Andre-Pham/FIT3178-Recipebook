@@ -143,10 +143,13 @@ extension CoreDataController: DatabaseProtocol {
         persistentContainer.viewContext.delete(ingredient)
     }
     
-    func addIngredientMeasurementToMeal(ingredientMeasurement: IngredientMeasurement, meal: Meal) -> Bool {
-        guard let mealIngredients = meal.ingredients, !mealIngredients.contains(ingredientMeasurement) else {
-            return false
-        }
+    func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) -> Bool {
+        
+        // Create Meal entity
+        let ingredientMeasurement = NSEntityDescription.insertNewObject(forEntityName: "IngredientMeasurement", into: persistentContainer.viewContext) as! IngredientMeasurement
+        // Assign attributes to Meal entity
+        ingredientMeasurement.name = name
+        ingredientMeasurement.quantity = quantity
         
         meal.addToIngredients(ingredientMeasurement)
         return true
