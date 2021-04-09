@@ -34,6 +34,8 @@
 		65AFBDC2261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */; };
 		65AFBDC3261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */; };
 		65AFBDC726202B500039CB66 /* IngredientMeasurementData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */; };
+		65AFBDD32620904A0039CB66 /* IngredientRootWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDD2262090490039CB66 /* IngredientRootWebData.swift */; };
+		65AFBDD6262091A10039CB66 /* IngredientWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDD5262091A10039CB66 /* IngredientWebData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +68,8 @@
 		65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientMeasurement+CoreDataClass.swift"; path = "recipebook/DataModel/IngredientMeasurement+CoreDataClass.swift"; sourceTree = "<group>"; };
 		65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientMeasurement+CoreDataProperties.swift"; path = "recipebook/DataModel/IngredientMeasurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMeasurementData.swift; sourceTree = "<group>"; };
+		65AFBDD2262090490039CB66 /* IngredientRootWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRootWebData.swift; sourceTree = "<group>"; };
+		65AFBDD5262091A10039CB66 /* IngredientWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientWebData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +128,8 @@
 				65AFBD83261EBA910039CB66 /* EditMealIngredientsTableViewController.swift */,
 				65AFBD86261EC4240039CB66 /* IngredientDescriptionViewController.swift */,
 				65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */,
+				65AFBDD2262090490039CB66 /* IngredientRootWebData.swift */,
+				65AFBDD5262091A10039CB66 /* IngredientWebData.swift */,
 			);
 			path = recipebook;
 			sourceTree = "<group>";
@@ -222,6 +228,7 @@
 				65AFBDC1261F78C10039CB66 /* Meal+CoreDataProperties.swift in Sources */,
 				65AFBD7B261DAD5B0039CB66 /* EditMealNameViewController.swift in Sources */,
 				65AFBD81261DCBA10039CB66 /* EditMealDelegate.swift in Sources */,
+				65AFBDD32620904A0039CB66 /* IngredientRootWebData.swift in Sources */,
 				65AFBD7E261DAD710039CB66 /* EditMealInstructionsViewController.swift in Sources */,
 				65AFBDA7261F74930039CB66 /* CoreDataController.swift in Sources */,
 				65AFBD6C261AF5130039CB66 /* MyMealsTableViewController.swift in Sources */,
@@ -230,6 +237,7 @@
 				65AFBD72261B13A00039CB66 /* SearchMealsTableViewController.swift in Sources */,
 				65AFBDA4261F743F0039CB66 /* DatabaseProtocol.swift in Sources */,
 				65AFBD8E261F445C0039CB66 /* RecipebookDataModel.xcdatamodeld in Sources */,
+				65AFBDD6262091A10039CB66 /* IngredientWebData.swift in Sources */,
 				65AFBD84261EBA910039CB66 /* EditMealIngredientsTableViewController.swift in Sources */,
 				65AFBDC726202B500039CB66 /* IngredientMeasurementData.swift in Sources */,
 				65AFBD6F261B01460039CB66 /* MealTableViewCell.swift in Sources */,
