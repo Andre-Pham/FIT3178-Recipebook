@@ -28,6 +28,7 @@ class MyMealsTableViewController: UITableViewController {
         super.viewDidLoad()
         
         // Testing
+        /*
         let ingredient1 = IngredientMeasurement(name: "ingedient1", quantity: "lots")
         let ingredient2 = IngredientMeasurement(name: "ingedient2", quantity: "little")
         
@@ -36,6 +37,7 @@ class MyMealsTableViewController: UITableViewController {
         
         self.shownMeals.append(meal1)
         self.shownMeals.append(meal2)
+        */
         // End testing
     }
 

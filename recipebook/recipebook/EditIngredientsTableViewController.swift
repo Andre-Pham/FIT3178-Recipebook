@@ -27,17 +27,6 @@ class EditIngredientsTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Testing
-        var ingredient1 = Ingredient(name: "ingredient1", ingredientDescription: "tasty")
-        var ingredient2 = Ingredient(name: "ingredient2", ingredientDescription: "")
-        var ingredient3 = Ingredient(name: "ingredient3", ingredientDescription: "gross")
-        var ingredient4 = Ingredient(name: "ingredient4", ingredientDescription: "")
-        self.ingredients.append(ingredient1)
-        self.ingredients.append(ingredient2)
-        self.ingredients.append(ingredient3)
-        self.ingredients.append(ingredient4)
-        // End testing
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

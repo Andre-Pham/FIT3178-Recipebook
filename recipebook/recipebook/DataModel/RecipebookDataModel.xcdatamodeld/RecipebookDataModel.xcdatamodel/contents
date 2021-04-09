@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D80" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Ingredient" representedClassName="Ingredient" syncable="YES">
+        <attribute name="ingredientDescription" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
+    <entity name="IngredientMeasurement" representedClassName="IngredientMeasurement" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="quantity" optional="YES" attributeType="String"/>
+        <relationship name="meal" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Meal" inverseName="ingredients" inverseEntity="Meal"/>
+    </entity>
+    <entity name="Meal" representedClassName="Meal" syncable="YES">
+        <attribute name="instructions" optional="YES" attributeType="String"/>
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="ingredients" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="IngredientMeasurement" inverseName="meal" inverseEntity="IngredientMeasurement"/>
+    </entity>
+    <elements>
+        <element name="Meal" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Ingredient" positionX="-54" positionY="-9" width="128" height="73"/>
+        <element name="IngredientMeasurement" positionX="-36" positionY="9" width="128" height="88"/>
+    </elements>
+</model>
