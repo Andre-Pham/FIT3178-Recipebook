@@ -1,3 +1,10 @@
+//
+//  EditMealInstructionsViewController.swift
+//  recipebook
+//
+//  Created by Andre Pham on 8/4/21.
+//
+
 import UIKit
 
 class IngredientDescriptionViewController: UIViewController {
@@ -12,9 +19,11 @@ class IngredientDescriptionViewController: UIViewController {
     
     // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Displays to user the ingredient name and description
         self.title = self.ingredient?.name
         self.ingredientDescriptionLabel.text = self.ingredient?.ingredientDescription
     }

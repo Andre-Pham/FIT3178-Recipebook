@@ -29,6 +29,7 @@ class EditMealIngredientsTableViewController: UITableViewController {
     
     // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,14 +37,15 @@ class EditMealIngredientsTableViewController: UITableViewController {
         databaseController = appDelegate?.databaseController
     }
     
-    // Calls before the view appears on screen
+    /// Calls before the view appears on screen
     override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         // Adds the class to the database listeners
         // (to recieve updates from the database)
-        super.viewWillAppear(animated)
         databaseController?.addListener(listener: self)
         
         // Testing
+        // Ensures that ingredients are only ever loaded once to Core Data
         if self.ingredients.count == 0 {
             let _ = databaseController?.addIngredient(name: "ingredient1", ingredientDescription: "tasty")
             let _ = databaseController?.addIngredient(name: "ingredient2", ingredientDescription: "yuck")
@@ -51,28 +53,32 @@ class EditMealIngredientsTableViewController: UITableViewController {
         // End testing
     }
     
-    // Calls before the view disappears on screen
+    /// Calls before the view disappears on screen
     override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
         // Removes the class from the database listeners
         // (to not recieve updates from the database)
-        super.viewWillDisappear(animated)
         databaseController?.removeListener(listener: self)
     }
 
+    /// Returns number of sections
     override func numberOfSections(in tableView: UITableView) -> Int {
         // Section 0: ingredients
         return 1
     }
 
+    /// Returns number of cells in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Given a section, this method returns the number of rows in the section
+        // SECTION_INGREDIENTS
         return self.ingredients.count
     }
     
+    /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         // indexPath.section == SECTION_INGREDIENTS
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_INGREDIENT, for: indexPath)
         let ingredient = self.ingredients[indexPath.row]
+        
         cell.textLabel?.text = ingredient.name
         if ingredient.ingredientDescription == "" {
             cell.accessoryType = UITableViewCell.AccessoryType.none
@@ -81,21 +87,22 @@ class EditMealIngredientsTableViewController: UITableViewController {
         return cell
     }
     
+    /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return false
     }
     
+    /// If an ingredient accessory button is tapped, transfers the ingredient to the ViewController and then nagivates the user to that ViewController
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        
         // https://stackoverflow.com/questions/30773529/open-new-view-controller-by-clicking-cell-in-table-view-swift-ios
         let destination = self.storyboard?.instantiateViewController(withIdentifier: "ingredientDescription") as! IngredientDescriptionViewController
+        
         destination.ingredient = self.ingredients[indexPath.row]
         self.navigationController?.pushViewController(destination, animated: true)
     }
     
+    /// When the user selects an ingredient cell, prompt a measurement entry
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // When the user selects a row within the Table View
-        
         if let ingredientName = ingredients[indexPath.row].name {
             self.displayAddMeasurementPopup(ingredientName: ingredientName)
         }
@@ -103,6 +110,7 @@ class EditMealIngredientsTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    /// Popup that prompts the user for a measurement popup, if a valid entry is input, updates meal ingredients via delegate and returns user back to previous ViewController
     func displayAddMeasurementPopup(ingredientName: String){
         // Define alert
         let alertController = UIAlertController(
@@ -140,16 +148,19 @@ class EditMealIngredientsTableViewController: UITableViewController {
         // Display popup
         self.present(alertController, animated: true, completion: nil)
     }
+    
 }
 
 // MARK: - DatabaseListener Extension
 
 extension EditMealIngredientsTableViewController: DatabaseListener {
     
+    /// Required for protocol
     func onAnyMealChange(change: DatabaseChange, meals: [Meal]) {
         // Pass
     }
     
+    /// If ingredients are added or changed in Core Data, update the TableView and ingredients property
     func onAnyIngredientChange(change: DatabaseChange, ingredients: [Ingredient]) {
         self.ingredients = ingredients
         tableView.reloadData()

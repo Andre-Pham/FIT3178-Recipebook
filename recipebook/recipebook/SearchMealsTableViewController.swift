@@ -25,11 +25,11 @@ class SearchMealsTableViewController: UITableViewController {
     
     // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //retrieveMeals()
-        
+        // Creates search object
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
         searchController.obscuresBackgroundDuringPresentation = false
@@ -40,29 +40,31 @@ class SearchMealsTableViewController: UITableViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
     }
 
+    /// Returns how many sections the TableView has
     override func numberOfSections(in tableView: UITableView) -> Int {
         // Section 0: list of meals to add
         // Section 1: option to add new meal
         return 2
     }
 
+    /// Returns the number of rows in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Given a section, this method returns the number of rows in the section
         switch section {
-            case SECTION_SHOWN_MEALS:
-                // Cell for each shown meal
-                return shownMeals.count
-            case SECTION_NEW_MEAL:
-                return 1
-            default:
-                return 0
+        case SECTION_SHOWN_MEALS:
+            // Cell for each shown meal
+            return shownMeals.count
+        case SECTION_NEW_MEAL:
+            // Cell that when selected, creates a new blank meal
+            return 1
+        default:
+            return 0
         }
     }
     
+    /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_SHOWN_MEALS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_SHOWN, for: indexPath) as! MealTableViewCell
-            
             let meal = shownMeals[indexPath.row]
             
             cell.labelMatchingMealTitle?.text = meal.name
@@ -70,8 +72,9 @@ class SearchMealsTableViewController: UITableViewController {
             
             return cell
         }
-        // indexPath.section == SECTION_NEW_MEAL
         else {
+            // indexPath.section == SECTION_NEW_MEAL
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_NEW_MEAL, for: indexPath)
             
             if shownMeals.isEmpty {
@@ -85,6 +88,7 @@ class SearchMealsTableViewController: UITableViewController {
         }
     }
     
+    /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == SECTION_SHOWN_MEALS {
             return true
@@ -93,18 +97,17 @@ class SearchMealsTableViewController: UITableViewController {
         return false
     }
     
+    /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchMealSegue" {
-            // Retrieve meal from cell being selected
+            // Define meal from cell being selected
             // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
             let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
             
-            // Assign the destination ViewController class to a variable to pass
-            // information to its properties
+            // Define the destination ViewController to assign its properties
             let destination = segue.destination as! CreateMealTableViewController
             
-            // Assign the class instance that holds information to a property
-            // within the destination ViewController class
+            // Assign properties to the destination ViewController
             destination.mealName = meal.name ?? ""
             destination.mealInstructions = meal.instructions ?? ""
             if let ingredients = meal.ingredients?.allObjects as? [IngredientMeasurement] {
@@ -115,42 +118,35 @@ class SearchMealsTableViewController: UITableViewController {
         }
     }
     
+    /// DELETE OR USE LATER
     func retrieveMeals() {
-        // Testing
-        /*
-        let ingredient1 = IngredientMeasurement(name: "ingedient1", quantity: "lots")
-        let ingredient2 = IngredientMeasurement(name: "ingedient2", quantity: "little")
-        
-        let meal1 = Meal(name: "beans", instructions: "pat the bean", ingredients: [ingredient1])
-        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.", ingredients: [ingredient1, ingredient2])
-        
-        self.retrievedMeals.append(meal1)
-        self.retrievedMeals.append(meal2)
-        */
-        // End testing
+        // Pass
     }
+    
 }
 
 // MARK: - Protocol Extensions
 
 extension SearchMealsTableViewController: UISearchResultsUpdating {
+    
+    /// Called every time a change is detected in the search bar, and filters the shown meals to match the search, refreshing the TableView cells
     func updateSearchResults(for searchController: UISearchController) {
-        // Called every time a change is detected in the search bar
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
         }
-        // If user has searched anything
+        
         if searchText.count > 0 {
-            self.shownMeals = self.retrievedMeals.filter(
-                {
-                    (meal: Meal) -> Bool in return (meal.name?.lowercased().contains(searchText) ?? false)
-                }
-            )
+            self.shownMeals = self.retrievedMeals.filter({
+                // Return all meals that contain the search text
+                (meal: Meal) -> Bool in return (meal.name?.lowercased().contains(searchText) ?? false)
+            })
         }
         else {
+            // No meals are shown if there is no search input
             shownMeals.removeAll()
         }
         
         tableView.reloadData()
     }
+    
 }

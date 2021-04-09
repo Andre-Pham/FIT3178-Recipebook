@@ -23,6 +23,7 @@ class EditMealNameViewController: UIViewController {
     
     // MARK: - Methods
     
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,9 +33,12 @@ class EditMealNameViewController: UIViewController {
     
     // MARK: - Actions
     
+    /// Saves the entered meal name by calling the delegate method
     @IBAction func saveNameButton(_ sender: Any) {
         editMealDelegate?.updateMealName(self.mealNameTextField.text ?? "")
+        
         navigationController?.popViewController(animated: true)
         return
     }
+    
 }

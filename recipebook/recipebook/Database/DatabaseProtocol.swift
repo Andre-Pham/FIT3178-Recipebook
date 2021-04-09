@@ -1,3 +1,10 @@
+//
+//  DatabaseProtocol.swift
+//  recipebook
+//
+//  Created by Andre Pham on 9/4/21.
+//
+
 import Foundation
 
 // Defines chat type of change has been done to the database
