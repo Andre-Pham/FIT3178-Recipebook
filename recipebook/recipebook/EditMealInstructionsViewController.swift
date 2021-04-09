@@ -14,14 +14,14 @@ class EditMealInstructionsViewController: UIViewController {
     // Delegates
     weak var editMealDelegate: EditMealDelegate?
     
-    // Class properties
+    // Other properties
     var previousMealInstructions: String?
     
     // MARK: - Outlets
     
     @IBOutlet weak var mealInstructionsTextField: UITextView!
     
-    // MARK: - ViewController Methods
+    // MARK: - Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()

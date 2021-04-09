@@ -16,6 +16,8 @@ class MealTableViewCell: UITableViewCell {
     @IBOutlet weak var labelMatchingMealTitle: UILabel!
     @IBOutlet weak var labelMatchingMealDescription: UILabel!
     
+    // MARK: - Methods
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

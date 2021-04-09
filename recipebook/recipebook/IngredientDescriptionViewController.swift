@@ -10,7 +10,7 @@ class IngredientDescriptionViewController: UIViewController {
     
     @IBOutlet weak var ingredientDescriptionLabel: UILabel!
     
-    // MARK: - ViewController Methods
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()

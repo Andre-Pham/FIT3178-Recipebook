@@ -23,10 +23,10 @@ class MyMealsTableViewController: UITableViewController {
     var listenerType = ListenerType.meal
     weak var databaseController: DatabaseProtocol?
     
-    // Class properties
+    // Other properties
     var shownMeals: [Meal] = []
     
-    // MARK: - TableView Methods
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,6 +117,8 @@ class MyMealsTableViewController: UITableViewController {
         }
     }
 }
+
+// MARK: - DatabaseListener Extension
 
 extension MyMealsTableViewController: DatabaseListener {
     

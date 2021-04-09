@@ -9,6 +9,8 @@ import UIKit
 
 class Popup: NSObject {
     
+    // MARK: - Methods
+    
     static func displayPopup(title: String, message: String, viewController: UIViewController) {
         // Define alert
         let alertController = UIAlertController(

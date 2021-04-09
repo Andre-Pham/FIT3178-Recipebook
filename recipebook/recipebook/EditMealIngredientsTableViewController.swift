@@ -17,17 +17,17 @@ class EditMealIngredientsTableViewController: UITableViewController {
     // Sections
     let SECTION_INGREDIENTS: Int = 0
     
-    // Delegates
-    weak var editMealDelegate: EditMealDelegate?
-    
     // Core Data
     var listenerType = ListenerType.ingredient
     weak var databaseController: DatabaseProtocol?
     
-    // Class properties
+    // Delegates
+    weak var editMealDelegate: EditMealDelegate?
+    
+    // Other properties
     var ingredients: [Ingredient] = []
     
-    // MARK: - TableView Methods
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -141,6 +141,8 @@ class EditMealIngredientsTableViewController: UITableViewController {
         self.present(alertController, animated: true, completion: nil)
     }
 }
+
+// MARK: - DatabaseListener Extension
 
 extension EditMealIngredientsTableViewController: DatabaseListener {
     

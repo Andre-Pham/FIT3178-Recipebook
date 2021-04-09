@@ -26,12 +26,12 @@ class CreateMealTableViewController: UITableViewController {
     // Core Data
     weak var databaseController: DatabaseProtocol?
     
-    // Class properties
+    // Other properties
     var mealName: String = ""
     var mealInstructions: String = ""
     var mealIngredients: [IngredientMeasurementData] = []
     
-    // MARK: - TableView Methods
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -244,6 +244,8 @@ class CreateMealTableViewController: UITableViewController {
         return
     }
 }
+
+// MARK: - EditMealDelegate Extension
 
 extension CreateMealTableViewController: EditMealDelegate {
     

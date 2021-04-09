@@ -19,11 +19,11 @@ class SearchMealsTableViewController: UITableViewController {
     let SECTION_SHOWN_MEALS: Int = 0
     let SECTION_NEW_MEAL: Int = 1
     
-    // Class properties
+    // Other properties
     var shownMeals: [Meal] = []
     var retrievedMeals: [Meal] = []
     
-    // MARK: - TableView Methods
+    // MARK: - Methods
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,8 +114,6 @@ class SearchMealsTableViewController: UITableViewController {
             }
         }
     }
-    
-    // MARK: - Class Methods
     
     func retrieveMeals() {
         // Testing
