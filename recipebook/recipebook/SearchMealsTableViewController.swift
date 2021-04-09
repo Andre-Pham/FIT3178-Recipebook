@@ -28,7 +28,7 @@ class SearchMealsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        retrieveMeals()
+        //retrieveMeals()
         
         let searchController = UISearchController(searchResultsController: nil)
         searchController.searchResultsUpdater = self
@@ -97,7 +97,7 @@ class SearchMealsTableViewController: UITableViewController {
         if segue.identifier == "searchMealSegue" {
             // Retrieve meal from cell being selected
             // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
-            let meal = shownMeals[tableView.indexPathForSelectedRow!.row]
+            let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
             
             // Assign the destination ViewController class to a variable to pass
             // information to its properties
@@ -105,9 +105,13 @@ class SearchMealsTableViewController: UITableViewController {
             
             // Assign the class instance that holds information to a property
             // within the destination ViewController class
-            destination.mealName = meal.name
-            destination.mealInstructions = meal.instructions
-            destination.mealIngredients = meal.ingredients
+            destination.mealName = meal.name ?? ""
+            destination.mealInstructions = meal.instructions ?? ""
+            if let ingredients = meal.ingredients?.allObjects as? [IngredientMeasurement] {
+                for ingredient in ingredients {
+                    destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
+                }
+            }
         }
     }
     
@@ -115,6 +119,7 @@ class SearchMealsTableViewController: UITableViewController {
     
     func retrieveMeals() {
         // Testing
+        /*
         let ingredient1 = IngredientMeasurement(name: "ingedient1", quantity: "lots")
         let ingredient2 = IngredientMeasurement(name: "ingedient2", quantity: "little")
         
@@ -123,6 +128,7 @@ class SearchMealsTableViewController: UITableViewController {
         
         self.retrievedMeals.append(meal1)
         self.retrievedMeals.append(meal2)
+        */
         // End testing
     }
 }
@@ -139,7 +145,7 @@ extension SearchMealsTableViewController: UISearchResultsUpdating {
         if searchText.count > 0 {
             self.shownMeals = self.retrievedMeals.filter(
                 {
-                    (meal: Meal) -> Bool in return meal.name.lowercased().contains(searchText)
+                    (meal: Meal) -> Bool in return (meal.name?.lowercased().contains(searchText) ?? false)
                 }
             )
         }

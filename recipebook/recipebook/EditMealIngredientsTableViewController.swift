@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EditIngredientsTableViewController: UITableViewController {
+class EditMealIngredientsTableViewController: UITableViewController {
 
     // MARK: - Properties
     
@@ -20,6 +20,10 @@ class EditIngredientsTableViewController: UITableViewController {
     // Delegates
     weak var editMealDelegate: EditMealDelegate?
     
+    // Core Data
+    var listenerType = ListenerType.ingredient
+    weak var databaseController: DatabaseProtocol?
+    
     // Class properties
     var ingredients: [Ingredient] = []
     
@@ -28,16 +32,31 @@ class EditIngredientsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let appDelegate = UIApplication.shared.delegate as? AppDelegate
+        databaseController = appDelegate?.databaseController
+    }
+    
+    // Calls before the view appears on screen
+    override func viewWillAppear(_ animated: Bool) {
+        // Adds the class to the database listeners
+        // (to recieve updates from the database)
+        super.viewWillAppear(animated)
+        databaseController?.addListener(listener: self)
+        
         // Testing
-        var ingredient1 = Ingredient(name: "ingredient1", ingredientDescription: "tasty")
-        var ingredient2 = Ingredient(name: "ingredient2", ingredientDescription: "")
-        var ingredient3 = Ingredient(name: "ingredient3", ingredientDescription: "gross")
-        var ingredient4 = Ingredient(name: "ingredient4", ingredientDescription: "")
-        self.ingredients.append(ingredient1)
-        self.ingredients.append(ingredient2)
-        self.ingredients.append(ingredient3)
-        self.ingredients.append(ingredient4)
+        if self.ingredients.count == 0 {
+            let _ = databaseController?.addIngredient(name: "ingredient1", ingredientDescription: "tasty")
+            let _ = databaseController?.addIngredient(name: "ingredient2", ingredientDescription: "yuck")
+        }
         // End testing
+    }
+    
+    // Calls before the view disappears on screen
+    override func viewWillDisappear(_ animated: Bool) {
+        // Removes the class from the database listeners
+        // (to not recieve updates from the database)
+        super.viewWillDisappear(animated)
+        databaseController?.removeListener(listener: self)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -104,7 +123,7 @@ class EditIngredientsTableViewController: UITableViewController {
                         return
                     }
                     
-                    let newIngredient = IngredientMeasurement(name: ingredientName, quantity: trimmedTextInput)
+                    let newIngredient = IngredientMeasurementData(name: ingredientName, quantity: trimmedTextInput)
                     self.editMealDelegate?.updateMealIngredients(newIngredient)
                     self.navigationController?.popViewController(animated: true)
                 }
@@ -121,4 +140,17 @@ class EditIngredientsTableViewController: UITableViewController {
         // Display popup
         self.present(alertController, animated: true, completion: nil)
     }
+}
+
+extension EditMealIngredientsTableViewController: DatabaseListener {
+    
+    func onAnyMealChange(change: DatabaseChange, meals: [Meal]) {
+        // Pass
+    }
+    
+    func onAnyIngredientChange(change: DatabaseChange, ingredients: [Ingredient]) {
+        self.ingredients = ingredients
+        tableView.reloadData()
+    }
+    
 }
