@@ -20,4 +20,5 @@ class IngredientMeasurementData: NSObject {
         self.name = name
         self.quantity = quantity
     }
+    
 }

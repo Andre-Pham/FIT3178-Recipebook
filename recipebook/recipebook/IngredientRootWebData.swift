@@ -20,4 +20,5 @@ class IngredientRootWebData: NSObject, Decodable {
     private enum CodingKeys: String, CodingKey {
         case ingredients = "meals"
     }
+    
 }
