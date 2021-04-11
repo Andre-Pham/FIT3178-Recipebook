@@ -194,7 +194,7 @@
                             <outlet property="delegate" destination="Icf-0a-Kht" id="Vld-nP-o18"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="RlU-Dg-fgg"/>
+                    <navigationItem key="navigationItem" title="Add Ingredient" id="RlU-Dg-fgg"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVj-Vs-K7J" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -229,7 +229,7 @@
                         <viewLayoutGuide key="safeArea" id="NVR-3O-0N7"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="u0T-gP-Ejv"/>
+                    <navigationItem key="navigationItem" title="Meal Instructions" id="u0T-gP-Ejv"/>
                     <connections>
                         <outlet property="mealInstructionsTextField" destination="9c1-PN-OND" id="FIh-P0-cRj"/>
                     </connections>
@@ -264,7 +264,7 @@
                         <viewLayoutGuide key="safeArea" id="Vus-kU-PKu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wPb-nb-OFG"/>
+                    <navigationItem key="navigationItem" title="Meal Name" id="wPb-nb-OFG"/>
                     <connections>
                         <outlet property="mealNameTextField" destination="7Df-ty-fxF" id="btV-ln-zaD"/>
                     </connections>
