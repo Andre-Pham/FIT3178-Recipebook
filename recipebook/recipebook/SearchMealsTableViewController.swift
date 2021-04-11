@@ -69,7 +69,7 @@ class SearchMealsTableViewController: UITableViewController {
                     for mealWebData in meals {
                         let mealName = mealWebData.mealName ?? ""
                         let mealInstructions = mealWebData.mealInstructions ?? ""
-                        self.retrievedMeals.append(MealData(name: mealName, instructions: mealInstructions, ingredients: []))
+                        self.retrievedMeals.append(MealData(name: mealName, instructions: mealInstructions, ingredients: mealWebData.mealIngredients))
                         //let name = ingredientWebData.ingredientName ?? ""
                         //let description = ingredientWebData.ingredientDescription ?? ""
                         //let _ = self.databaseController?.addIngredient(name: name, ingredientDescription: description)
@@ -155,11 +155,7 @@ class SearchMealsTableViewController: UITableViewController {
             // Assign properties to the destination ViewController
             destination.mealName = meal.name ?? ""
             destination.mealInstructions = meal.instructions ?? ""
-            if let ingredients = meal.ingredients {
-                for ingredient in ingredients {
-                    destination.mealIngredients.append(ingredient)
-                }
-            }
+            destination.mealIngredients = meal.ingredients ?? []
         }
     }
     

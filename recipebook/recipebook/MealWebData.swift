@@ -15,8 +15,10 @@ class MealWebData: NSObject, Decodable {
     var mealName: String?
     var mealInstructions: String?
     
-    var mealIngredientNames = [String]()
-    var mealIngredientMeasurements = [String]()
+    //var mealIngredientNames = [String]()
+    //var mealIngredientMeasurements = [String]()
+    
+    var mealIngredients = [IngredientMeasurementData]()
     
     let INGREDIENT_NAME_KEY = "strIngredient"
     let INGREDIENT_MEASURE_KEY = "strMeasure"
@@ -94,18 +96,24 @@ class MealWebData: NSObject, Decodable {
         }
         
         for ingredientNum in 1...tempIngredientNames.count {
+            // ADD VALIDATION
             let ingredientNameKey = self.INGREDIENT_NAME_KEY + String(ingredientNum)
             let ingredientMeasurementKey = self.INGREDIENT_MEASURE_KEY + String(ingredientNum)
             
-            self.mealIngredientNames.append(tempIngredientNames[ingredientNameKey]!)
-            self.mealIngredientMeasurements.append(tempIngredientMeasurements[ingredientMeasurementKey]!)
+            //self.mealIngredientNames.append(tempIngredientNames[ingredientNameKey]!)
+            //self.mealIngredientMeasurements.append(tempIngredientMeasurements[ingredientMeasurementKey]!)
+            
+            if let ingredientName = tempIngredientNames[ingredientNameKey], let ingredientMeasurement = tempIngredientMeasurements[ingredientMeasurementKey] {
+                self.mealIngredients.append(IngredientMeasurementData(name: ingredientName, quantity: ingredientMeasurement))
+            }
+            
         }
-        
+        /*
         for i in 0...self.mealIngredientNames.count-1 {
             print(self.mealIngredientNames[i] + ": " + self.mealIngredientMeasurements[i])
         }
         print("-----")
-        
+        */
         
         /*
         if let ingredientsArray = try? rootContainer.decode([String].self, forKey: .ingredients) {
