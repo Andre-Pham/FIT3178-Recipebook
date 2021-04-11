@@ -150,6 +150,10 @@ extension CoreDataController: DatabaseProtocol {
         persistentContainer.viewContext.delete(ingredient)
     }
     
+    func countIngredients() -> Int {
+        return fetchAllIngredients().count
+    }
+    
     func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) -> Bool {
         
         // Create Meal entity

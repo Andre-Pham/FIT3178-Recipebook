@@ -35,6 +35,14 @@ class MyMealsTableViewController: UITableViewController {
         // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
+        
+        //print("\(databaseController?.countIngredients() ?? 0)")
+        if let coreDataIngredientCount = databaseController?.countIngredients() {
+            if coreDataIngredientCount == 0 {
+                // No ingredients are locally saved, so they are loaded in
+                self.requestIngredientsWebData()
+            }
+        }
     }
     
     /// Calls before the view appears on screen
@@ -120,6 +128,47 @@ class MyMealsTableViewController: UITableViewController {
             let meal = self.shownMeals[indexPath.row]
             databaseController?.deleteMeal(meal: meal)
         }
+    }
+    
+    func requestIngredientsWebData() {
+        guard let requestURL = URL(string: "https://www.themealdb.com/api/json/v1/1/list.php?i=list") else {
+            print("Invalid URL.")
+            return
+        }
+        
+        // Parse data
+        let task = URLSession.shared.dataTask(with: requestURL) {
+            (data, response, error) in
+            
+            // Occurs on a new thread
+            
+            // If we have recieved an error message
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            // Parse data
+            do {
+                let decoder = JSONDecoder()
+                let ingredientRootWebData = try decoder.decode(IngredientRootWebData.self, from: data!)
+                
+                if let ingredients = ingredientRootWebData.ingredients {
+                    //self.ingredientsWebData.append(contentsOf: ingredients)
+                    
+                    for ingredientWebData in ingredients {
+                        let name = ingredientWebData.ingredientName ?? ""
+                        let description = ingredientWebData.ingredientDescription ?? ""
+                        let _ = self.databaseController?.addIngredient(name: name, ingredientDescription: description)
+                    }
+                }
+            }
+            catch let err {
+                print(err)
+            }
+        }
+        
+        task.resume()
     }
     
 }

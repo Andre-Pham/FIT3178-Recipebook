@@ -47,9 +47,7 @@ class EditMealIngredientsTableViewController: UITableViewController {
         // (to recieve updates from the database)
         databaseController?.addListener(listener: self)
         
-        if self.ingredients.count == 0 {
-            self.requestIngredientsWebData()
-        }
+        
         
         // Testing
         // Ensures that ingredients are only ever loaded once to Core Data
@@ -60,47 +58,6 @@ class EditMealIngredientsTableViewController: UITableViewController {
         }
         */
         // End testing
-    }
-    
-    func requestIngredientsWebData() {
-        guard let requestURL = URL(string: "https://www.themealdb.com/api/json/v1/1/list.php?i=list") else {
-            print("Invalid URL.")
-            return
-        }
-        
-        // Parse data
-        let task = URLSession.shared.dataTask(with: requestURL) {
-            (data, response, error) in
-            
-            // Occurs on a new thread
-            
-            // If we have recieved an error message
-            if let error = error {
-                print(error)
-                return
-            }
-            
-            // Parse data
-            do {
-                let decoder = JSONDecoder()
-                let ingredientRootWebData = try decoder.decode(IngredientRootWebData.self, from: data!)
-                
-                if let ingredients = ingredientRootWebData.ingredients {
-                    //self.ingredientsWebData.append(contentsOf: ingredients)
-                    
-                    for ingredientWebData in ingredients {
-                        let name = ingredientWebData.ingredientName ?? ""
-                        let description = ingredientWebData.ingredientDescription ?? ""
-                        let _ = self.databaseController?.addIngredient(name: name, ingredientDescription: description)
-                    }
-                }
-            }
-            catch let err {
-                print(err)
-            }
-        }
-        
-        task.resume()
     }
     
     /// Calls before the view disappears on screen

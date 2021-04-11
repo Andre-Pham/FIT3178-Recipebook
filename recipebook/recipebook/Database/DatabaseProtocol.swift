@@ -46,6 +46,8 @@ protocol DatabaseProtocol: AnyObject {
     func addIngredient(name: String, ingredientDescription: String) -> Ingredient
     func deleteIngredient(ingredient: Ingredient)
     
+    func countIngredients() -> Int
+    
     func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) -> Bool
     func removeIngredientMeasurementFromMeal(ingredientMeasurement: IngredientMeasurement, meal: Meal)
 }
