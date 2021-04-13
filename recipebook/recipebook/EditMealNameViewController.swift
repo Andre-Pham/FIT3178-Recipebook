@@ -14,15 +14,16 @@ class EditMealNameViewController: UIViewController {
     // Delegates
     weak var editMealDelegate: EditMealDelegate?
     
-    // Class properties
+    // Other properties
     var previousMealName: String?
     
     // MARK: - Outlets
     
     @IBOutlet weak var mealNameTextField: UITextField!
     
-    // MARK: - ViewController Methods
+    // MARK: - Methods
     
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,9 +33,12 @@ class EditMealNameViewController: UIViewController {
     
     // MARK: - Actions
     
+    /// Saves the entered meal name by calling the delegate method
     @IBAction func saveNameButton(_ sender: Any) {
         editMealDelegate?.updateMealName(self.mealNameTextField.text ?? "")
+        
         navigationController?.popViewController(animated: true)
         return
     }
+    
 }

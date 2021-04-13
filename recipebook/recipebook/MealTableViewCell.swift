@@ -16,15 +16,14 @@ class MealTableViewCell: UITableViewCell {
     @IBOutlet weak var labelMatchingMealTitle: UILabel!
     @IBOutlet weak var labelMatchingMealDescription: UILabel!
     
+    // MARK: - Methods
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

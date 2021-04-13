@@ -19,50 +19,139 @@ class SearchMealsTableViewController: UITableViewController {
     let SECTION_SHOWN_MEALS: Int = 0
     let SECTION_NEW_MEAL: Int = 1
     
-    // Class properties
-    var shownMeals: [Meal] = []
-    var retrievedMeals: [Meal] = []
+    var indicator = UIActivityIndicatorView()
     
-    // MARK: - TableView Methods
+    // Other properties
+    // REMOVE RETRIEVED MEALS
+    var shownMeals: [MealData] = []
+    var retrievedMeals: [MealData] = []
+    
+    // MARK: - Methods
 
+    /// Calls on page load
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //retrieveMeals()
-        
+        // Creates search object
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchResultsUpdater = self
+        searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search Meals"
         navigationItem.searchController = searchController
         
         // Ensure search is always visible
         navigationItem.hidesSearchBarWhenScrolling = false
+        
+        // Add a loading indicator view
+        indicator.style = UIActivityIndicatorView.Style.large
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(indicator)
+        
+        NSLayoutConstraint.activate([
+            indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+        ])
+    }
+    
+    func requestMealsWebData(searchText: String) {
+        
+        // https://www.themealdb.com/api/json/v1/1/search.php?s=cake
+        var requestURLComponents = URLComponents()
+        requestURLComponents.scheme = "https"
+        requestURLComponents.host = "www.themealdb.com"
+        requestURLComponents.path = "/api/json/v1/1/search.php"
+        requestURLComponents.queryItems = [
+            URLQueryItem(
+                name: "s",
+                value: searchText
+            )
+        ]
+        
+        guard let requestURL = requestURLComponents.url else {
+            print("Invalid URL.")
+            return
+        }
+        
+        /*
+        guard let requestURL = URL(string: "https://www.themealdb.com/api/json/v1/1/search.php?s=cake") else {
+            print("Invalid URL.")
+            return
+        }
+        */
+        
+        // Parse data
+        let task = URLSession.shared.dataTask(with: requestURL) {
+            (data, response, error) in
+            
+            // Occurs on a new thread
+            
+            DispatchQueue.main.async {
+                self.indicator.stopAnimating()
+            }
+            
+            // If we have recieved an error message
+            if let error = error {
+                print(error)
+                return
+            }
+            
+            // Parse data
+            do {
+                let decoder = JSONDecoder()
+                let mealRootWebData = try decoder.decode(MealRootWebData.self, from: data!)
+                
+                if let meals = mealRootWebData.meals {
+                    //self.ingredientsWebData.append(contentsOf: ingredients)
+                    
+                    for mealWebData in meals {
+                        let mealName = mealWebData.mealName ?? ""
+                        let mealInstructions = mealWebData.mealInstructions ?? ""
+                        self.shownMeals.append(MealData(name: mealName, instructions: mealInstructions, ingredients: mealWebData.mealIngredients))
+                        //print(mealName)
+                        //let name = ingredientWebData.ingredientName ?? ""
+                        //let description = ingredientWebData.ingredientDescription ?? ""
+                        //let _ = self.databaseController?.addIngredient(name: name, ingredientDescription: description)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+            catch let err {
+                print(err)
+            }
+        }
+        
+        task.resume()
     }
 
+
+    /// Returns how many sections the TableView has
     override func numberOfSections(in tableView: UITableView) -> Int {
         // Section 0: list of meals to add
         // Section 1: option to add new meal
         return 2
     }
 
+    /// Returns the number of rows in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Given a section, this method returns the number of rows in the section
         switch section {
-            case SECTION_SHOWN_MEALS:
-                // Cell for each shown meal
-                return shownMeals.count
-            case SECTION_NEW_MEAL:
-                return 1
-            default:
-                return 0
+        case SECTION_SHOWN_MEALS:
+            // Cell for each shown meal
+            return shownMeals.count
+        case SECTION_NEW_MEAL:
+            // Cell that when selected, creates a new blank meal
+            return 1
+        default:
+            return 0
         }
     }
     
+    /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_SHOWN_MEALS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_SHOWN, for: indexPath) as! MealTableViewCell
-            
             let meal = shownMeals[indexPath.row]
             
             cell.labelMatchingMealTitle?.text = meal.name
@@ -70,8 +159,9 @@ class SearchMealsTableViewController: UITableViewController {
             
             return cell
         }
-        // indexPath.section == SECTION_NEW_MEAL
         else {
+            // indexPath.section == SECTION_NEW_MEAL
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_NEW_MEAL, for: indexPath)
             
             if shownMeals.isEmpty {
@@ -85,6 +175,7 @@ class SearchMealsTableViewController: UITableViewController {
         }
     }
     
+    /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == SECTION_SHOWN_MEALS {
             return true
@@ -93,66 +184,66 @@ class SearchMealsTableViewController: UITableViewController {
         return false
     }
     
+    /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchMealSegue" {
-            // Retrieve meal from cell being selected
+            // Define meal from cell being selected
             // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
             let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
             
-            // Assign the destination ViewController class to a variable to pass
-            // information to its properties
+            // Define the destination ViewController to assign its properties
             let destination = segue.destination as! CreateMealTableViewController
             
-            // Assign the class instance that holds information to a property
-            // within the destination ViewController class
+            // Assign properties to the destination ViewController
             destination.mealName = meal.name ?? ""
             destination.mealInstructions = meal.instructions ?? ""
-            if let ingredients = meal.ingredients?.allObjects as? [IngredientMeasurement] {
-                for ingredient in ingredients {
-                    destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
-                }
-            }
+            destination.mealIngredients = meal.ingredients ?? []
         }
     }
     
-    // MARK: - Class Methods
-    
-    func retrieveMeals() {
-        // Testing
-        /*
-        let ingredient1 = IngredientMeasurement(name: "ingedient1", quantity: "lots")
-        let ingredient2 = IngredientMeasurement(name: "ingedient2", quantity: "little")
-        
-        let meal1 = Meal(name: "beans", instructions: "pat the bean", ingredients: [ingredient1])
-        let meal2 = Meal(name: "Curry", instructions: "You can make curry with meat, seafood, legumes or vegetables. While curry recipes can vary drastically, most are simmered in a heavily spiced sauce and served with a side of rice. Curries are wonderfully adaptable, and once you have your base sauce you can easily cater the dish to your tastes.The real secret to curry success is using fresh spices. Please throw away that jar of curry powder you’ve had in the spice cabinet for ages! (Yes, spices do expire.) If it’s older than two years, it’s probably lost its luster.", ingredients: [ingredient1, ingredient2])
-        
-        self.retrievedMeals.append(meal1)
-        self.retrievedMeals.append(meal2)
-        */
-        // End testing
-    }
 }
 
 // MARK: - Protocol Extensions
 
-extension SearchMealsTableViewController: UISearchResultsUpdating {
+extension SearchMealsTableViewController: UISearchBarDelegate {
+    
+    /*
+    /// Called every time a change is detected in the search bar, and filters the shown meals to match the search, refreshing the TableView cells
     func updateSearchResults(for searchController: UISearchController) {
-        // Called every time a change is detected in the search bar
         guard let searchText = searchController.searchBar.text?.lowercased() else {
             return
         }
-        // If user has searched anything
+        
+        self.shownMeals = []
+        self.requestMealsWebData(searchText: searchText)
+        
         if searchText.count > 0 {
-            self.shownMeals = self.retrievedMeals.filter(
-                {
-                    (meal: Meal) -> Bool in return (meal.name?.lowercased().contains(searchText) ?? false)
-                }
-            )
+            //self.shownMeals.removeAll()
         }
         else {
-            shownMeals.removeAll()
+            // No meals are shown if there is no search input
+            self.shownMeals.removeAll()
         }
         
         tableView.reloadData()
     }
+     */
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        shownMeals.removeAll()
+        tableView.reloadData()
+        
+        guard let searchText = searchBar.text?.lowercased() else {
+            return
+        }
+        
+        // Stops all existing tasks to avoid background download
+        // Causes: [NSURLSession sharedSession] may not be invalidated
+        URLSession.shared.invalidateAndCancel()
+        
+        // If there is search text, feedback is provided
+        indicator.startAnimating()
+        self.requestMealsWebData(searchText: searchText)
+    }
+    
 }

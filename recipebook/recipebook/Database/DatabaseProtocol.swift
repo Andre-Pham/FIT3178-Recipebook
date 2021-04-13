@@ -1,3 +1,10 @@
+//
+//  DatabaseProtocol.swift
+//  recipebook
+//
+//  Created by Andre Pham on 9/4/21.
+//
+
 import Foundation
 
 // Defines chat type of change has been done to the database
@@ -29,6 +36,7 @@ protocol DatabaseListener: AnyObject {
 protocol DatabaseProtocol: AnyObject {
     
     func saveChanges()
+    func saveChildToParent()
     
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)
@@ -38,6 +46,8 @@ protocol DatabaseProtocol: AnyObject {
     
     func addIngredient(name: String, ingredientDescription: String) -> Ingredient
     func deleteIngredient(ingredient: Ingredient)
+    
+    func countIngredients() -> Int
     
     func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) -> Bool
     func removeIngredientMeasurementFromMeal(ingredientMeasurement: IngredientMeasurement, meal: Meal)

@@ -9,6 +9,9 @@ import UIKit
 
 class Popup: NSObject {
     
+    // MARK: - Methods
+    
+    /// Creates and shows a title and text popup with a 'Dismiss' option
     static func displayPopup(title: String, message: String, viewController: UIViewController) {
         // Define alert
         let alertController = UIAlertController(
@@ -31,4 +34,5 @@ class Popup: NSObject {
             completion: nil
         )
     }
+    
 }
