@@ -162,6 +162,8 @@ class MyMealsTableViewController: UITableViewController {
                         let _ = self.databaseController?.addIngredient(name: name, ingredientDescription: description)
                     }
                 }
+                // If ALL ingredients are saved to child managed context, save it to Core Data
+                self.databaseController?.saveChildToParent()
             }
             catch let err {
                 print(err)

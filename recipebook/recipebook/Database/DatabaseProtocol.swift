@@ -36,6 +36,7 @@ protocol DatabaseListener: AnyObject {
 protocol DatabaseProtocol: AnyObject {
     
     func saveChanges()
+    func saveChildToParent()
     
     func addListener(listener: DatabaseListener)
     func removeListener(listener: DatabaseListener)

@@ -13,7 +13,8 @@ class CoreDataController: NSObject {
     var listeners = MulticastDelegate<DatabaseListener>()
     var persistentContainer: NSPersistentContainer
     
-    // What do these properties do???
+    var childManagedContext: NSManagedObjectContext
+    
     var allMealsFetchedResultsController: NSFetchedResultsController<Meal>?
     var allIngredientsFetchedResultsController: NSFetchedResultsController<Ingredient>?
     
@@ -25,6 +26,10 @@ class CoreDataController: NSObject {
                 fatalError("Failed to load Core Data Stack with error: \(error)")
             }
         }
+        
+        // Initiate Child Managed Context
+        self.childManagedContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        self.childManagedContext.parent = self.persistentContainer.viewContext
         
         super.init()
     }
@@ -104,6 +109,16 @@ extension CoreDataController: DatabaseProtocol {
         }
     }
     
+    func saveChildToParent() {
+        do {
+            // Saving child managed context pushes it to Core Data
+            try self.childManagedContext.save()
+        }
+        catch {
+            fatalError("Failed to save child managed context to Core Data with error: \(error)")
+        }
+    }
+    
     func addListener(listener: DatabaseListener) {
         // Adds the new database listener to the list of listeners
         listeners.addDelegate(listener)
@@ -137,8 +152,12 @@ extension CoreDataController: DatabaseProtocol {
     }
     
     func addIngredient(name: String, ingredientDescription: String) -> Ingredient {
+        // TESTING: Child Managed Context
+        let ingredient = NSEntityDescription.insertNewObject(forEntityName: "Ingredient", into: self.childManagedContext) as! Ingredient
+        // END: Child Managed Context
+        
         // Create Ingredient entity
-        let ingredient = NSEntityDescription.insertNewObject(forEntityName: "Ingredient", into: persistentContainer.viewContext) as! Ingredient
+        //let ingredient = NSEntityDescription.insertNewObject(forEntityName: "Ingredient", into: persistentContainer.viewContext) as! Ingredient
         // Assign attributes to Meal entity
         ingredient.name = name
         ingredient.ingredientDescription = ingredientDescription
