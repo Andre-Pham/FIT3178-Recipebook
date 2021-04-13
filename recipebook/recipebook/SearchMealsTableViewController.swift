@@ -117,6 +117,11 @@ class SearchMealsTableViewController: UITableViewController {
                         self.tableView.reloadData()
                     }
                 }
+                DispatchQueue.main.async {
+                    if self.shownMeals.count == 0 {
+                        Popup.displayPopup(title: "No Results", message: "No results matched \"\(searchText)\".", viewController: self)
+                    }
+                }
             }
             catch let err {
                 print(err)
@@ -139,7 +144,7 @@ class SearchMealsTableViewController: UITableViewController {
         switch section {
         case SECTION_SHOWN_MEALS:
             // Cell for each shown meal
-            return shownMeals.count
+            return self.shownMeals.count
         case SECTION_NEW_MEAL:
             // Cell that when selected, creates a new blank meal
             return 1
@@ -152,7 +157,7 @@ class SearchMealsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_SHOWN_MEALS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_SHOWN, for: indexPath) as! MealTableViewCell
-            let meal = shownMeals[indexPath.row]
+            let meal = self.shownMeals[indexPath.row]
             
             cell.labelMatchingMealTitle?.text = meal.name
             cell.labelMatchingMealDescription?.text = meal.instructions
@@ -164,7 +169,7 @@ class SearchMealsTableViewController: UITableViewController {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_NEW_MEAL, for: indexPath)
             
-            if shownMeals.isEmpty {
+            if self.shownMeals.isEmpty {
                 cell.textLabel?.text = "No matches? Tap to add a new meal."
             }
             else {
