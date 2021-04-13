@@ -230,20 +230,23 @@ extension SearchMealsTableViewController: UISearchBarDelegate {
      */
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        shownMeals.removeAll()
-        tableView.reloadData()
         
         guard let searchText = searchBar.text?.lowercased() else {
             return
         }
         
-        // Stops all existing tasks to avoid background download
-        // Causes: [NSURLSession sharedSession] may not be invalidated
-        URLSession.shared.invalidateAndCancel()
-        
-        // If there is search text, feedback is provided
-        indicator.startAnimating()
-        self.requestMealsWebData(searchText: searchText)
+        if searchText.count > 0 {
+            shownMeals.removeAll()
+            tableView.reloadData()
+            
+            // Stops all existing tasks to avoid background download
+            // Causes: [NSURLSession sharedSession] may not be invalidated
+            URLSession.shared.invalidateAndCancel()
+            
+            // If there is search text, feedback is provided
+            indicator.startAnimating()
+            self.requestMealsWebData(searchText: searchText)
+        }
     }
     
 }
