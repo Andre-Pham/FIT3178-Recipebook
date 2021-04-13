@@ -113,6 +113,8 @@ class CreateMealTableViewController: UITableViewController {
         else if indexPath.section == SECTION_MEAL_INGREDIENTS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_INGREDIENT, for: indexPath)
             
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
+            
             if self.mealIngredients.count == 0 {
                 cell.textLabel?.text = "No ingredients!"
                 cell.textLabel?.textColor = UIColor(named: "defaultCellContent")
@@ -142,7 +144,7 @@ class CreateMealTableViewController: UITableViewController {
     
     /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == SECTION_MEAL_INGREDIENTS {
+        if indexPath.section == SECTION_MEAL_INGREDIENTS && self.mealIngredients.count > 0 {
             return true
         }
 
