@@ -276,7 +276,7 @@ class CreateMealTableViewController: UITableViewController {
             }
             // Re-add all the current ingredients to the saved meal
             for ingredient in self.mealIngredients {
-                let _ = databaseController?.addIngredientMeasurementToMeal(name: ingredient.name!, quantity: ingredient.quantity!, meal: savedMeal)
+                databaseController?.addIngredientMeasurementToMeal(name: ingredient.name!, quantity: ingredient.quantity!, meal: savedMeal)
             }
         }
         else {
@@ -286,7 +286,7 @@ class CreateMealTableViewController: UITableViewController {
                 for ingredient in self.mealIngredients {
                     let name = ingredient.name!
                     let quantity = ingredient.quantity!
-                    let _ = databaseController?.addIngredientMeasurementToMeal(name: name, quantity: quantity, meal: newMeal)
+                    databaseController?.addIngredientMeasurementToMeal(name: name, quantity: quantity, meal: newMeal)
                 }
             }
         }

@@ -14,27 +14,23 @@ enum DatabaseChange {
     case update
 }
 
-// When different data requires different handling, we define ListenerType, which
-// specifies the type of data each listener has to deal with
+// Specifies the type of data each listener has to deal with
 enum ListenerType {
     case meal
     case ingredient
     case all
 }
 
-// A listener (protocol) that allows for <I DONT KNOW>
+// Protocol for listeners for when the database changes
 protocol DatabaseListener: AnyObject {
-    // Protocol requires that listenerType is specified
     var listenerType: ListenerType {get set}
     
     func onAnyMealChange(change: DatabaseChange, meals: [Meal])
     func onAnyIngredientChange(change: DatabaseChange, ingredients: [Ingredient])
 }
 
-// A protocol defines all the behaviour that a database must have, accessable to
-// all parts of the application
+// Protocol for all functions for interacting with the database
 protocol DatabaseProtocol: AnyObject {
-    
     func saveChanges()
     func saveChildToParent()
     
@@ -49,7 +45,7 @@ protocol DatabaseProtocol: AnyObject {
     
     func countIngredients() -> Int
     
-    func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) -> Bool
+    func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal)
     func removeIngredientMeasurementFromMeal(ingredientMeasurement: IngredientMeasurement, meal: Meal)
     
     func editSavedMeal(meal: Meal, newName: String, newInstructions: String)

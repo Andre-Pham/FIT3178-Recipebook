@@ -9,17 +9,22 @@ import UIKit
 import CoreData
 
 class CoreDataController: NSObject {
-    // Required properties
-    var listeners = MulticastDelegate<DatabaseListener>()
-    var persistentContainer: NSPersistentContainer
     
-    var childManagedContext: NSManagedObjectContext
+    // MARK: - Properties
     
+    // FetchedResultsControllers
     var allMealsFetchedResultsController: NSFetchedResultsController<Meal>?
     var allIngredientsFetchedResultsController: NSFetchedResultsController<Ingredient>?
     
-    // Constructor
+    // Other properties
+    var listeners = MulticastDelegate<DatabaseListener>()
+    var persistentContainer: NSPersistentContainer
+    var childManagedContext: NSManagedObjectContext
+    
+    // MARK: - Constructor
+    
     override init() {
+        // Define persistent container
         persistentContainer = NSPersistentContainer(name: "RecipebookDataModel")
         persistentContainer.loadPersistentStores() {
             (description, error) in if let error = error {
@@ -34,7 +39,7 @@ class CoreDataController: NSObject {
         super.init()
     }
     
-    // Retrieves all meal entities stored within Core Data persistent memory
+    /// Retrieves all meal entities stored within Core Data persistent memory
     func fetchAllMeals() -> [Meal] {
         if allMealsFetchedResultsController == nil {
             // Instantiate fetch request
@@ -64,7 +69,7 @@ class CoreDataController: NSObject {
         return [Meal]() // Empty
     }
 
-    // Retrieves all ingredient entities stored within Core Data persistent memory
+    /// Retrieves all ingredient entities stored within Core Data persistent memory
     func fetchAllIngredients() -> [Ingredient] {
         if allIngredientsFetchedResultsController == nil {
             // Instantiate fetch request
@@ -93,11 +98,12 @@ class CoreDataController: NSObject {
         
         return [Ingredient]() // Empty
     }
+    
 }
 
 extension CoreDataController: DatabaseProtocol {
-    // Checks if there are changes to be saved inside of hte view context and then
-    // saves, if necessary
+    
+    /// Checks if there are changes to be saved inside of the view context and then saves, if necessary
     func saveChanges() {
         if persistentContainer.viewContext.hasChanges {
             do {
@@ -109,6 +115,7 @@ extension CoreDataController: DatabaseProtocol {
         }
     }
     
+    /// Saves the child context, hence pushing the changes to the parent context
     func saveChildToParent() {
         do {
             // Saving child managed context pushes it to Core Data
@@ -119,6 +126,7 @@ extension CoreDataController: DatabaseProtocol {
         }
     }
     
+    /// Creates a new listener that either fetches all meals or ingredients
     func addListener(listener: DatabaseListener) {
         // Adds the new database listener to the list of listeners
         listeners.addDelegate(listener)
@@ -132,63 +140,71 @@ extension CoreDataController: DatabaseProtocol {
         }
     }
     
-    // Removes a specific listener from the set of saved listeners
+    /// Removes a specific listener
     func removeListener(listener: DatabaseListener) {
         listeners.removeDelegate(listener)
     }
     
+    /// Adds a Meal instance to Core Data
     func addMeal(name: String, instructions: String) -> Meal {
         // Create Meal entity
         let meal = NSEntityDescription.insertNewObject(forEntityName: "Meal", into: persistentContainer.viewContext) as! Meal
+        
         // Assign attributes to Meal entity
         meal.name = name
         meal.instructions = instructions
         
+        // Meal is returned in case it has to be used after its added to Core Data
         return meal
     }
     
+    /// Removes a Meal instance from Core Data
     func deleteMeal(meal: Meal) {
         persistentContainer.viewContext.delete(meal)
     }
     
+    /// Adds an Ingredient instance to the child context
     func addIngredient(name: String, ingredientDescription: String) -> Ingredient {
-        // TESTING: Child Managed Context
+        // Creates an Ingredient entity in child context
         let ingredient = NSEntityDescription.insertNewObject(forEntityName: "Ingredient", into: self.childManagedContext) as! Ingredient
-        // END: Child Managed Context
         
-        // Create Ingredient entity
-        //let ingredient = NSEntityDescription.insertNewObject(forEntityName: "Ingredient", into: persistentContainer.viewContext) as! Ingredient
         // Assign attributes to Meal entity
         ingredient.name = name
         ingredient.ingredientDescription = ingredientDescription
         
+        // Ingredient is returned in case it has to be used after being added to the child context
         return ingredient
     }
     
+    /// Removes an Ingredient instance from Core Data
     func deleteIngredient(ingredient: Ingredient) {
         persistentContainer.viewContext.delete(ingredient)
     }
     
+    /// Returns the number of Ingredient instances saved in Core Data
     func countIngredients() -> Int {
         return fetchAllIngredients().count
     }
     
-    func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) -> Bool {
-        
+    /// Adds an IngredientMeasurement instance to a saved Meal instance in Core Data
+    func addIngredientMeasurementToMeal(name: String, quantity: String, meal: Meal) {
         // Create Meal entity
         let ingredientMeasurement = NSEntityDescription.insertNewObject(forEntityName: "IngredientMeasurement", into: persistentContainer.viewContext) as! IngredientMeasurement
+        
         // Assign attributes to Meal entity
         ingredientMeasurement.name = name
         ingredientMeasurement.quantity = quantity
         
+        // Add to Meal entity
         meal.addToIngredients(ingredientMeasurement)
-        return true
     }
     
+    /// Removes an IngredientMeasurement instance from a saved Meal in Core Data
     func removeIngredientMeasurementFromMeal(ingredientMeasurement: IngredientMeasurement, meal: Meal) {
         meal.removeFromIngredients(ingredientMeasurement)
     }
     
+    /// Modifies the properties of a Meal instance already saved to Core Data
     func editSavedMeal(meal: Meal, newName: String, newInstructions: String) {
         meal.name = newName
         meal.instructions = newInstructions
@@ -197,8 +213,8 @@ extension CoreDataController: DatabaseProtocol {
 }
 
 extension CoreDataController: NSFetchedResultsControllerDelegate {
-    // Called whenever the FetchedResultsController detects a change to the result
-    // of its fetch
+    
+    /// Called whenever the FetchedResultsController detects a change to the result of its fetch
     func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         if controller == allMealsFetchedResultsController {
             listeners.invoke() {
@@ -215,4 +231,5 @@ extension CoreDataController: NSFetchedResultsControllerDelegate {
             }
         }
     }
+    
 }
