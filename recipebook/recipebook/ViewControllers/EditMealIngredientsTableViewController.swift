@@ -114,6 +114,9 @@ class EditMealIngredientsTableViewController: UITableViewController {
     
     /// Popup that prompts the user for a measurement popup, if a valid entry is input, updates meal ingredients via delegate and returns user back to previous ViewController
     func displayAddMeasurementPopup(ingredientName: String){
+        // SOURCE: https://medium.com/swift-india/uialertcontroller-in-swift-22f3c5b1dd68
+        // AUTHOR: Balaji Malliswamy - https://medium.com/@blahji
+        
         // Define alert
         let alertController = UIAlertController(
             title: "Add measurement",

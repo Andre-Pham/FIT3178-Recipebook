@@ -188,6 +188,8 @@ class MyMealsTableViewController: UITableViewController {
             // Assign properties to the destination ViewController
             destination.mealName = meal.name ?? ""
             destination.mealInstructions = meal.instructions ?? ""
+            // SOURCE: https://stackoverflow.com/questions/24422831/convert-nsset-to-swift-array
+            // AUTHOR: Daniel
             for ingredient in meal.ingredients?.allObjects as! [IngredientMeasurement] {
                 destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
             }
