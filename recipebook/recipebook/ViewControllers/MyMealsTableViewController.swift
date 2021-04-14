@@ -128,6 +128,7 @@ class MyMealsTableViewController: UITableViewController {
         if editingStyle == .delete && indexPath.section == self.SECTION_SHOWN_MEALS {
             let meal = self.shownMeals[indexPath.row]
             databaseController?.deleteMeal(meal: meal)
+            databaseController?.saveChanges()
         }
     }
     
@@ -163,6 +164,7 @@ class MyMealsTableViewController: UITableViewController {
                 }
                 // If ALL ingredients are saved to child managed context, save it to Core Data
                 self.databaseController?.saveChildToParent()
+                self.databaseController?.saveChanges()
             }
             catch let err {
                 print(err)
