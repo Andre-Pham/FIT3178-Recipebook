@@ -30,6 +30,7 @@ class EditMealInstructionsViewController: UIViewController {
         // Load name from CreateMealTableViewController
         mealInstructionsTextField.text = self.previousMealInstructions
         
+        // Format text field
         self.mealInstructionsTextField.layer.cornerRadius = 10
         self.mealInstructionsTextField.textContainerInset = UIEdgeInsets(top: 15, left: 12, bottom: 15, right: 12)
     }

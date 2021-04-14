@@ -81,10 +81,29 @@ class CreateMealTableViewController: UITableViewController {
         }
     }
     
+    /// Assigns headers to the sections of cells
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch section {
+        case SECTION_MEAL_NAME:
+            return "Meal Name"
+        case SECTION_MEAL_INSTRUCTIONS:
+            return "Instructions"
+        case SECTION_MEAL_INGREDIENTS:
+            return "Ingredients"
+        case SECTION_ADD_INGREDIENT:
+            return nil
+        default:
+            return nil
+        }
+    }
+    
+    /// Changes header properties for the cell sections
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        // Format headers
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor.black
         header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        // This changes the headers to lowercase
         switch section {
         case SECTION_MEAL_NAME:
             header.textLabel?.text = "Meal Name"
@@ -99,7 +118,7 @@ class CreateMealTableViewController: UITableViewController {
     
     /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == SECTION_MEAL_NAME {
+        if indexPath.section == self.SECTION_MEAL_NAME {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_NAME, for: indexPath)
             
             if self.mealName.count == 0 {
@@ -113,7 +132,7 @@ class CreateMealTableViewController: UITableViewController {
             
             return cell
         }
-        else if indexPath.section == SECTION_MEAL_INSTRUCTIONS {
+        else if indexPath.section == self.SECTION_MEAL_INSTRUCTIONS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_INSTRUCTIONS, for: indexPath)
             
             if self.mealInstructions.count == 0 {
@@ -127,9 +146,10 @@ class CreateMealTableViewController: UITableViewController {
             
             return cell
         }
-        else if indexPath.section == SECTION_MEAL_INGREDIENTS {
+        else if indexPath.section == self.SECTION_MEAL_INGREDIENTS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_INGREDIENT, for: indexPath)
             
+            // Ingredients can't be selected, only deleted
             cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
             if self.mealIngredients.count == 0 {
@@ -138,7 +158,7 @@ class CreateMealTableViewController: UITableViewController {
                 cell.detailTextLabel?.text = ""
             }
             else {
-                let ingredient = mealIngredients[indexPath.row]
+                let ingredient = self.mealIngredients[indexPath.row]
                 
                 cell.textLabel?.text = ingredient.name
                 cell.textLabel?.textColor = UIColor.label
@@ -148,7 +168,7 @@ class CreateMealTableViewController: UITableViewController {
             return cell
         }
         else {
-            // indexPath.section == SECTION_ADD_INGREDIENT
+            // indexPath.section == self.SECTION_ADD_INGREDIENT
             
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ADD_INGREDIENT, for: indexPath)
             
@@ -161,7 +181,8 @@ class CreateMealTableViewController: UITableViewController {
     
     /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == SECTION_MEAL_INGREDIENTS && self.mealIngredients.count > 0 {
+        // Meal ingredients can be deleted
+        if indexPath.section == self.SECTION_MEAL_INGREDIENTS && self.mealIngredients.count > 0 {
             return true
         }
 
@@ -178,22 +199,6 @@ class CreateMealTableViewController: UITableViewController {
                 },
                 completion: nil
             )
-        }
-    }
-    
-    /// Assigns headers to the sections of cells
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        switch section {
-        case SECTION_MEAL_NAME:
-            return "Meal Name"
-        case SECTION_MEAL_INSTRUCTIONS:
-            return "Instructions"
-        case SECTION_MEAL_INGREDIENTS:
-            return "Ingredients"
-        case SECTION_ADD_INGREDIENT:
-            return nil
-        default:
-            return nil
         }
     }
     
@@ -242,6 +247,7 @@ class CreateMealTableViewController: UITableViewController {
             errorMessages.append("has one or more ingredients")
         }
         if errorMessages.count > 0 {
+            // Put together error message
             var errorMessage: String
             if errorMessages.count > 1 {
                 let firstErrors = errorMessages[0...(errorMessages.count-2)].joined(separator: ", ")
@@ -250,12 +256,16 @@ class CreateMealTableViewController: UITableViewController {
             else {
                 errorMessage = "Please ensure the meal \(errorMessages[0])."
             }
+            
+            // Notify user of error
             Popup.displayPopup(title: "Invalid Meal", message: errorMessage, viewController: self)
+            
+            // Cancel the save to core data
             return
         }
         
         // Save to core data
-        if let savedMeal = savedMealToEdit {
+        if let savedMeal = self.savedMealToEdit {
             // Already saved meal being edited
             
             // Change the saved meal's name and instructions

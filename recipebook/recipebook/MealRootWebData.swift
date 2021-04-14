@@ -16,7 +16,6 @@ class MealRootWebData: NSObject, Decodable {
     
     // MARK: - Coding Keys
     
-    // Meals
     private enum CodingKeys: String, CodingKey {
         case meals
     }

@@ -36,10 +36,10 @@ class MyMealsTableViewController: UITableViewController {
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
         
-        //print("\(databaseController?.countIngredients() ?? 0)")
+        // Saves ingredients from webservice to Core Data, only if there are no ingredients saved
         if let coreDataIngredientCount = databaseController?.countIngredients() {
             if coreDataIngredientCount == 0 {
-                // No ingredients are locally saved, so they are loaded in
+                // No ingredients are locally saved, so ingredients are loaded in
                 self.requestIngredientsWebData()
             }
         }
@@ -71,10 +71,10 @@ class MyMealsTableViewController: UITableViewController {
     /// Returns the number of rows in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case SECTION_SHOWN_MEALS:
+        case self.SECTION_SHOWN_MEALS:
             // Cell for each shown meal
             return shownMeals.count
-        case SECTION_MEAL_COUNT:
+        case self.SECTION_MEAL_COUNT:
             // Cell that displays number of meals saved
             return 1
         default:
@@ -84,9 +84,9 @@ class MyMealsTableViewController: UITableViewController {
     
     /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == SECTION_SHOWN_MEALS {
+        if indexPath.section == self.SECTION_SHOWN_MEALS {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_SHOWN, for: indexPath) as! MealTableViewCell
-            let meal = shownMeals[indexPath.row]
+            let meal = self.shownMeals[indexPath.row]
             
             cell.labelMealTitle?.text = meal.name
             cell.labelMealDescription?.text = meal.instructions
@@ -94,16 +94,16 @@ class MyMealsTableViewController: UITableViewController {
             return cell
         }
         else {
-            // indexPath.section == SECTION_MEAL_COUNT
+            // indexPath.section == self.SECTION_MEAL_COUNT
             
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_MEAL_COUNT, for: indexPath)
             
-            if shownMeals.isEmpty {
+            if self.shownMeals.isEmpty {
                 cell.textLabel?.text = "No meals saved"
             }
             else {
-                var text = "\(shownMeals.count) stored meal"
-                if shownMeals.count > 1 {
+                var text = "\(self.shownMeals.count) stored meal"
+                if self.shownMeals.count > 1 {
                     text += "s"
                 }
                 cell.textLabel?.text = text
@@ -115,7 +115,8 @@ class MyMealsTableViewController: UITableViewController {
     
     /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        if indexPath.section == SECTION_SHOWN_MEALS {
+        // Shown meals can be deleted
+        if indexPath.section == self.SECTION_SHOWN_MEALS {
             return true
         }
 
@@ -124,23 +125,22 @@ class MyMealsTableViewController: UITableViewController {
     
     /// Allows the deletion of saved meals via swipe gesture
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete && indexPath.section == SECTION_SHOWN_MEALS {
+        if editingStyle == .delete && indexPath.section == self.SECTION_SHOWN_MEALS {
             let meal = self.shownMeals[indexPath.row]
             databaseController?.deleteMeal(meal: meal)
         }
     }
     
+    /// Retrieves ingredients from webservice and stores them into Core Data
     func requestIngredientsWebData() {
         guard let requestURL = URL(string: "https://www.themealdb.com/api/json/v1/1/list.php?i=list") else {
             print("Invalid URL.")
             return
         }
         
-        // Parse data
+        // Occurs on a new thread
         let task = URLSession.shared.dataTask(with: requestURL) {
             (data, response, error) in
-            
-            // Occurs on a new thread
             
             // If we have recieved an error message
             if let error = error {
@@ -153,9 +153,8 @@ class MyMealsTableViewController: UITableViewController {
                 let decoder = JSONDecoder()
                 let ingredientRootWebData = try decoder.decode(IngredientRootWebData.self, from: data!)
                 
+                // Add all ingredients found from the webservice to Core Data
                 if let ingredients = ingredientRootWebData.ingredients {
-                    //self.ingredientsWebData.append(contentsOf: ingredients)
-                    
                     for ingredientWebData in ingredients {
                         let name = ingredientWebData.ingredientName ?? ""
                         let description = ingredientWebData.ingredientDescription ?? ""
@@ -177,7 +176,8 @@ class MyMealsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "myMealsSegue" {
             // Define meal from cell being selected
-            // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            // AUTHOR: GetSwifty
             let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
             
             // Define the destination ViewController to assign its properties
@@ -189,6 +189,7 @@ class MyMealsTableViewController: UITableViewController {
             for ingredient in meal.ingredients?.allObjects as! [IngredientMeasurement] {
                 destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
             }
+            // If savedMealToEdit is defined in CreateMealTableViewController, it will edit the meal rather than saving a new meal
             destination.savedMealToEdit = meal
         }
     }

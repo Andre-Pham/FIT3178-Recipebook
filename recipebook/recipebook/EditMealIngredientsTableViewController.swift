@@ -36,6 +36,7 @@ class EditMealIngredientsTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Sets property databaseController to reference to the databaseController from AppDelegate
         let appDelegate = UIApplication.shared.delegate as? AppDelegate
         databaseController = appDelegate?.databaseController
     }
@@ -46,18 +47,6 @@ class EditMealIngredientsTableViewController: UITableViewController {
         // Adds the class to the database listeners
         // (to recieve updates from the database)
         databaseController?.addListener(listener: self)
-        
-        
-        
-        // Testing
-        // Ensures that ingredients are only ever loaded once to Core Data
-        /*
-        if self.ingredients.count == 0 {
-            let _ = databaseController?.addIngredient(name: "ingredient1", ingredientDescription: "tasty")
-            let _ = databaseController?.addIngredient(name: "ingredient2", ingredientDescription: "yuck")
-        }
-        */
-        // End testing
     }
     
     /// Calls before the view disappears on screen
@@ -76,17 +65,19 @@ class EditMealIngredientsTableViewController: UITableViewController {
 
     /// Returns number of cells in any given section
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // SECTION_INGREDIENTS
+        // self.SECTION_INGREDIENTS
         return self.ingredients.count
     }
     
     /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // indexPath.section == SECTION_INGREDIENTS
+        // indexPath.section == self.SECTION_INGREDIENTS
         let cell = tableView.dequeueReusableCell(withIdentifier: CELL_INGREDIENT, for: indexPath)
         let ingredient = self.ingredients[indexPath.row]
         
         cell.textLabel?.text = ingredient.name
+        
+        // Remove accessory buttons from ingredients without a description
         if ingredient.ingredientDescription == "" {
             cell.accessoryType = UITableViewCell.AccessoryType.none
         }
@@ -101,16 +92,20 @@ class EditMealIngredientsTableViewController: UITableViewController {
     
     /// If an ingredient accessory button is tapped, transfers the ingredient to the ViewController and then nagivates the user to that ViewController
     override func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
-        // https://stackoverflow.com/questions/30773529/open-new-view-controller-by-clicking-cell-in-table-view-swift-ios
+        // SOURCE: https://stackoverflow.com/questions/30773529/open-new-view-controller-by-clicking-cell-in-table-view-swift-ios
+        // AUTHOR: Eendje
         let destination = self.storyboard?.instantiateViewController(withIdentifier: "ingredientDescription") as! IngredientDescriptionViewController
         
+        // Assign properteis of destination
         destination.ingredient = self.ingredients[indexPath.row]
+        
         self.navigationController?.pushViewController(destination, animated: true)
     }
     
     /// When the user selects an ingredient cell, prompt a measurement entry
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let ingredientName = ingredients[indexPath.row].name {
+        // Selecting an ingredient cell prompts a popup input for the user. Triggered actions are handled by the popup.
+        if let ingredientName = self.ingredients[indexPath.row].name {
             self.displayAddMeasurementPopup(ingredientName: ingredientName)
         }
 
@@ -138,8 +133,12 @@ class EditMealIngredientsTableViewController: UITableViewController {
                         return
                     }
                     
+                    // Create new ingredient to update Create Meal page with
                     let newIngredient = IngredientMeasurementData(name: ingredientName, quantity: trimmedTextInput)
+                    
+                    // Call delegate to update Create Meal page
                     self.editMealDelegate?.updateMealIngredients(newIngredient)
+                    
                     self.navigationController?.popViewController(animated: true)
                 }
             }

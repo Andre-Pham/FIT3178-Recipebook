@@ -19,12 +19,11 @@ class SearchMealsTableViewController: UITableViewController {
     let SECTION_SHOWN_MEALS: Int = 0
     let SECTION_NEW_MEAL: Int = 1
     
+    // Indicator
     var indicator = UIActivityIndicatorView()
     
     // Other properties
-    // REMOVE RETRIEVED MEALS
     var shownMeals: [MealData] = []
-    var retrievedMeals: [MealData] = []
     
     // MARK: - Methods
 
@@ -43,19 +42,22 @@ class SearchMealsTableViewController: UITableViewController {
         navigationItem.hidesSearchBarWhenScrolling = false
         
         // Add a loading indicator view
-        indicator.style = UIActivityIndicatorView.Style.large
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(indicator)
+        self.indicator.style = UIActivityIndicatorView.Style.large
+        self.indicator.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(self.indicator)
         
+        // Centres the loading indicator view
         NSLayoutConstraint.activate([
-            indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
-            indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
+            self.indicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            self.indicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor)
         ])
     }
     
+    /// Retrieves information about meals from a webservice, and appends them to self.shownMeals
     func requestMealsWebData(searchText: String) {
-        
         // https://www.themealdb.com/api/json/v1/1/search.php?s=cake
+        
+        // Form URL from different components
         var requestURLComponents = URLComponents()
         requestURLComponents.scheme = "https"
         requestURLComponents.host = "www.themealdb.com"
@@ -67,23 +69,15 @@ class SearchMealsTableViewController: UITableViewController {
             )
         ]
         
+        // Ensure URL is valid
         guard let requestURL = requestURLComponents.url else {
             print("Invalid URL.")
             return
         }
         
-        /*
-        guard let requestURL = URL(string: "https://www.themealdb.com/api/json/v1/1/search.php?s=cake") else {
-            print("Invalid URL.")
-            return
-        }
-        */
-        
-        // Parse data
+        // Occurs on a new thread
         let task = URLSession.shared.dataTask(with: requestURL) {
             (data, response, error) in
-            
-            // Occurs on a new thread
             
             DispatchQueue.main.async {
                 self.indicator.stopAnimating()
@@ -100,23 +94,19 @@ class SearchMealsTableViewController: UITableViewController {
                 let decoder = JSONDecoder()
                 let mealRootWebData = try decoder.decode(MealRootWebData.self, from: data!)
                 
+                // Add meals retrieved to self.shownMeals
                 if let meals = mealRootWebData.meals {
-                    //self.ingredientsWebData.append(contentsOf: ingredients)
-                    
                     for mealWebData in meals {
                         let mealName = mealWebData.mealName ?? ""
                         let mealInstructions = mealWebData.mealInstructions ?? ""
                         self.shownMeals.append(MealData(name: mealName, instructions: mealInstructions, ingredients: mealWebData.mealIngredients))
-                        //print(mealName)
-                        //let name = ingredientWebData.ingredientName ?? ""
-                        //let description = ingredientWebData.ingredientDescription ?? ""
-                        //let _ = self.databaseController?.addIngredient(name: name, ingredientDescription: description)
                     }
                     
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
                 }
+                // Notify user if no results were found
                 DispatchQueue.main.async {
                     if self.shownMeals.count == 0 {
                         Popup.displayPopup(title: "No Results", message: "No results matched \"\(searchText)\".", viewController: self)
@@ -177,6 +167,7 @@ class SearchMealsTableViewController: UITableViewController {
     
     /// Returns whether a given section can be edited
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        // Meals shown can be deleted
         if indexPath.section == SECTION_SHOWN_MEALS {
             return true
         }
@@ -188,7 +179,8 @@ class SearchMealsTableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "searchMealSegue" {
             // Define meal from cell being selected
-            // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            // SOURCE: https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            // AUTHOR: GetSwifty
             let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
             
             // Define the destination ViewController to assign its properties
@@ -207,43 +199,21 @@ class SearchMealsTableViewController: UITableViewController {
 
 extension SearchMealsTableViewController: UISearchBarDelegate {
     
-    /*
-    /// Called every time a change is detected in the search bar, and filters the shown meals to match the search, refreshing the TableView cells
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let searchText = searchController.searchBar.text?.lowercased() else {
-            return
-        }
-        
-        self.shownMeals = []
-        self.requestMealsWebData(searchText: searchText)
-        
-        if searchText.count > 0 {
-            //self.shownMeals.removeAll()
-        }
-        else {
-            // No meals are shown if there is no search input
-            self.shownMeals.removeAll()
-        }
-        
-        tableView.reloadData()
-    }
-     */
-    
+    /// Calls when the user clicks "search" on the keyboard
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        
         guard let searchText = searchBar.text?.lowercased() else {
             return
         }
         
         if searchText.count > 0 {
+            // Clear previously searched meals
             shownMeals.removeAll()
             tableView.reloadData()
             
             // Stops all existing tasks to avoid background download
-            // Causes: [NSURLSession sharedSession] may not be invalidated
             URLSession.shared.invalidateAndCancel()
             
-            // If there is search text, feedback is provided
+            // Feedback is provided, and data is requested
             indicator.startAnimating()
             self.requestMealsWebData(searchText: searchText)
         }
