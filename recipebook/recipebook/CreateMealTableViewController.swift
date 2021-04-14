@@ -278,6 +278,8 @@ class CreateMealTableViewController: UITableViewController {
             for ingredient in self.mealIngredients {
                 databaseController?.addIngredientMeasurementToMeal(name: ingredient.name!, quantity: ingredient.quantity!, meal: savedMeal)
             }
+            
+            databaseController?.saveChanges()
         }
         else {
             // New meal being saved
@@ -289,6 +291,8 @@ class CreateMealTableViewController: UITableViewController {
                     databaseController?.addIngredientMeasurementToMeal(name: name, quantity: quantity, meal: newMeal)
                 }
             }
+            
+            databaseController?.saveChanges()
         }
         
         navigationController?.popToRootViewController(animated: true)

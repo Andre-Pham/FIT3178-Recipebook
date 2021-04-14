@@ -64,12 +64,12 @@
 		65AFBD9F261F73780039CB66 /* MulticastDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MulticastDelegate.swift; sourceTree = "<group>"; };
 		65AFBDA3261F743F0039CB66 /* DatabaseProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseProtocol.swift; sourceTree = "<group>"; };
 		65AFBDA6261F74930039CB66 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
-		65AFBDB8261F78C10039CB66 /* Ingredient+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Ingredient+CoreDataClass.swift"; path = "recipebook/DataModel/Ingredient+CoreDataClass.swift"; sourceTree = "<group>"; };
-		65AFBDB9261F78C10039CB66 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Ingredient+CoreDataProperties.swift"; path = "recipebook/DataModel/Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		65AFBDBA261F78C10039CB66 /* Meal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Meal+CoreDataClass.swift"; path = "recipebook/DataModel/Meal+CoreDataClass.swift"; sourceTree = "<group>"; };
-		65AFBDBB261F78C10039CB66 /* Meal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Meal+CoreDataProperties.swift"; path = "recipebook/DataModel/Meal+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientMeasurement+CoreDataClass.swift"; path = "recipebook/DataModel/IngredientMeasurement+CoreDataClass.swift"; sourceTree = "<group>"; };
-		65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "IngredientMeasurement+CoreDataProperties.swift"; path = "recipebook/DataModel/IngredientMeasurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65AFBDB8261F78C10039CB66 /* Ingredient+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65AFBDB9261F78C10039CB66 /* Ingredient+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Ingredient+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65AFBDBA261F78C10039CB66 /* Meal+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meal+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65AFBDBB261F78C10039CB66 /* Meal+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Meal+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IngredientMeasurement+CoreDataClass.swift"; sourceTree = "<group>"; };
+		65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "IngredientMeasurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientMeasurementData.swift; sourceTree = "<group>"; };
 		65AFBDD2262090490039CB66 /* IngredientRootWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientRootWebData.swift; sourceTree = "<group>"; };
 		65AFBDD5262091A10039CB66 /* IngredientWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IngredientWebData.swift; sourceTree = "<group>"; };
@@ -92,12 +92,6 @@
 		65AFBD41261AEC360039CB66 = {
 			isa = PBXGroup;
 			children = (
-				65AFBDB8261F78C10039CB66 /* Ingredient+CoreDataClass.swift */,
-				65AFBDB9261F78C10039CB66 /* Ingredient+CoreDataProperties.swift */,
-				65AFBDBA261F78C10039CB66 /* Meal+CoreDataClass.swift */,
-				65AFBDBB261F78C10039CB66 /* Meal+CoreDataProperties.swift */,
-				65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */,
-				65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */,
 				65AFBD4C261AEC360039CB66 /* recipebook */,
 				65AFBD4B261AEC360039CB66 /* Products */,
 			);
@@ -154,6 +148,12 @@
 		65AFBD9E261F73520039CB66 /* Database */ = {
 			isa = PBXGroup;
 			children = (
+				65AFBDB8261F78C10039CB66 /* Ingredient+CoreDataClass.swift */,
+				65AFBDB9261F78C10039CB66 /* Ingredient+CoreDataProperties.swift */,
+				65AFBDBA261F78C10039CB66 /* Meal+CoreDataClass.swift */,
+				65AFBDBB261F78C10039CB66 /* Meal+CoreDataProperties.swift */,
+				65AFBDBC261F78C10039CB66 /* IngredientMeasurement+CoreDataClass.swift */,
+				65AFBDBD261F78C10039CB66 /* IngredientMeasurement+CoreDataProperties.swift */,
 				65AFBD9F261F73780039CB66 /* MulticastDelegate.swift */,
 				65AFBDA3261F743F0039CB66 /* DatabaseProtocol.swift */,
 				65AFBDA6261F74930039CB66 /* CoreDataController.swift */,
