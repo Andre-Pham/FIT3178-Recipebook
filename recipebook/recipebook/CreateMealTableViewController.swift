@@ -101,7 +101,7 @@ class CreateMealTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         // Format headers
         let header = view as! UITableViewHeaderFooterView
-        header.textLabel?.textColor = UIColor.black
+        header.textLabel?.textColor = UIColor(named: "titleColour")
         header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
         // This changes the headers to lowercase
         switch section {
