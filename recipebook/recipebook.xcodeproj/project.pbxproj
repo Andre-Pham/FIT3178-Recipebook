@@ -108,6 +108,8 @@
 		65AFBD4C261AEC360039CB66 /* recipebook */ = {
 			isa = PBXGroup;
 			children = (
+				65AFBDFE26275FEF0039CB66 /* ViewControllers */,
+				65AFBDFD26275F3B0039CB66 /* Web Services */,
 				65AFBD9E261F73520039CB66 /* Database */,
 				65AFBD8B261F43DA0039CB66 /* DataModel */,
 				65AFBD4D261AEC360039CB66 /* AppDelegate.swift */,
@@ -117,21 +119,10 @@
 				65AFBD56261AEC380039CB66 /* Assets.xcassets */,
 				65AFBD58261AEC380039CB66 /* LaunchScreen.storyboard */,
 				65AFBD5B261AEC380039CB66 /* Info.plist */,
-				65AFBD6B261AF5130039CB66 /* MyMealsTableViewController.swift */,
 				65AFBD6E261B01460039CB66 /* MealTableViewCell.swift */,
-				65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */,
-				65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */,
 				65AFBD77261DA9070039CB66 /* Popup.swift */,
-				65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */,
-				65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */,
 				65AFBD80261DCBA10039CB66 /* EditMealDelegate.swift */,
-				65AFBD83261EBA910039CB66 /* EditMealIngredientsTableViewController.swift */,
-				65AFBD86261EC4240039CB66 /* IngredientDescriptionViewController.swift */,
 				65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */,
-				65AFBDD2262090490039CB66 /* IngredientRootWebData.swift */,
-				65AFBDD5262091A10039CB66 /* IngredientWebData.swift */,
-				65AFBDD82621FBEB0039CB66 /* MealRootWebData.swift */,
-				65AFBDDB2621FC890039CB66 /* MealWebData.swift */,
 				65AFBDDE262203120039CB66 /* MealData.swift */,
 			);
 			path = recipebook;
@@ -159,6 +150,31 @@
 				65AFBDA6261F74930039CB66 /* CoreDataController.swift */,
 			);
 			path = Database;
+			sourceTree = "<group>";
+		};
+		65AFBDFD26275F3B0039CB66 /* Web Services */ = {
+			isa = PBXGroup;
+			children = (
+				65AFBDD2262090490039CB66 /* IngredientRootWebData.swift */,
+				65AFBDD5262091A10039CB66 /* IngredientWebData.swift */,
+				65AFBDD82621FBEB0039CB66 /* MealRootWebData.swift */,
+				65AFBDDB2621FC890039CB66 /* MealWebData.swift */,
+			);
+			path = "Web Services";
+			sourceTree = "<group>";
+		};
+		65AFBDFE26275FEF0039CB66 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				65AFBD6B261AF5130039CB66 /* MyMealsTableViewController.swift */,
+				65AFBD71261B13A00039CB66 /* SearchMealsTableViewController.swift */,
+				65AFBD74261D70200039CB66 /* CreateMealTableViewController.swift */,
+				65AFBD7A261DAD5B0039CB66 /* EditMealNameViewController.swift */,
+				65AFBD7D261DAD710039CB66 /* EditMealInstructionsViewController.swift */,
+				65AFBD83261EBA910039CB66 /* EditMealIngredientsTableViewController.swift */,
+				65AFBD86261EC4240039CB66 /* IngredientDescriptionViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
