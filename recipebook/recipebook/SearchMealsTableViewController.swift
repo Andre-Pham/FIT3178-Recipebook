@@ -169,12 +169,7 @@ class SearchMealsTableViewController: UITableViewController {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_NEW_MEAL, for: indexPath)
             
-            if self.shownMeals.isEmpty {
-                cell.textLabel?.text = "No matches? Tap to add a new meal."
-            }
-            else {
-                cell.textLabel?.text = "Not what you were looking for? Tap to add a new meal."
-            }
+            cell.textLabel?.text = "Tap to create a new meal."
             
             return cell
         }

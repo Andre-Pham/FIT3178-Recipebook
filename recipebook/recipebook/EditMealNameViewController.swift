@@ -29,12 +29,16 @@ class EditMealNameViewController: UIViewController {
         
         // Load name from CreateMealTableViewController
         mealNameTextField.text = self.previousMealName
+        
+        self.mealNameTextField.layer.cornerRadius = 10
+        self.mealNameTextField.leftView = UIView(frame: CGRect(x: 0, y: 0, width: 12, height: 0))
+        self.mealNameTextField.leftViewMode = .always
     }
     
     // MARK: - Actions
     
     /// Saves the entered meal name by calling the delegate method
-    @IBAction func saveNameButton(_ sender: Any) {
+    @IBAction func saveBarButtonItemPressed(_ sender: Any) {
         editMealDelegate?.updateMealName(self.mealNameTextField.text ?? "")
         
         navigationController?.popViewController(animated: true)

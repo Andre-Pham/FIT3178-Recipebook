@@ -81,6 +81,22 @@ class CreateMealTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        let header = view as! UITableViewHeaderFooterView
+        header.textLabel?.textColor = UIColor.black
+        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        switch section {
+        case SECTION_MEAL_NAME:
+            header.textLabel?.text = "Meal Name"
+        case SECTION_MEAL_INSTRUCTIONS:
+            header.textLabel?.text = "Instructions"
+        case SECTION_MEAL_INGREDIENTS:
+            header.textLabel?.text = "Ingredients"
+        default:
+            return
+        }
+    }
+    
     /// Creates the cells and contents of the TableView
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == SECTION_MEAL_NAME {
@@ -169,11 +185,11 @@ class CreateMealTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case SECTION_MEAL_NAME:
-            return "MEAL NAME"
+            return "Meal Name"
         case SECTION_MEAL_INSTRUCTIONS:
-            return "INSTRUCTIONS"
+            return "Instructions"
         case SECTION_MEAL_INGREDIENTS:
-            return "INGREDIENTS"
+            return "Ingredients"
         case SECTION_ADD_INGREDIENT:
             return nil
         default:

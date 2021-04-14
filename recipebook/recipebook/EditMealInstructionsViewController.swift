@@ -29,12 +29,15 @@ class EditMealInstructionsViewController: UIViewController {
         
         // Load name from CreateMealTableViewController
         mealInstructionsTextField.text = self.previousMealInstructions
+        
+        self.mealInstructionsTextField.layer.cornerRadius = 10
+        self.mealInstructionsTextField.textContainerInset = UIEdgeInsets(top: 15, left: 12, bottom: 15, right: 12)
     }
     
     // MARK: - Actions
     
     /// Saves the entered meal instructions by calling the delegate method
-    @IBAction func saveInstructionsButton(_ sender: Any) {
+    @IBAction func saveBarButtonItemPressed(_ sender: Any) {
         editMealDelegate?.updateMealInstructions(self.mealInstructionsTextField.text ?? "")
         navigationController?.popViewController(animated: true)
         return
