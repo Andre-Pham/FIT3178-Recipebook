@@ -300,9 +300,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" numberOfLines="12" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhg-Lj-DzN">
-                                <rect key="frame" x="66" y="233" width="278" height="355"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="15" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Uhg-Lj-DzN">
+                                <rect key="frame" x="20" y="49" width="374" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -310,6 +309,11 @@
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RfH-g3-G4O"/>
                         <color key="backgroundColor" name="backgroundColour"/>
+                        <constraints>
+                            <constraint firstItem="Uhg-Lj-DzN" firstAttribute="top" secondItem="RfH-g3-G4O" secondAttribute="top" constant="5" id="Hyh-mB-QXs"/>
+                            <constraint firstItem="Uhg-Lj-DzN" firstAttribute="leading" secondItem="RfH-g3-G4O" secondAttribute="leading" constant="20" id="RVJ-B1-yAS"/>
+                            <constraint firstItem="RfH-g3-G4O" firstAttribute="trailing" secondItem="Uhg-Lj-DzN" secondAttribute="trailing" constant="20" id="wNE-gJ-c3Y"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="wPO-5G-zON"/>
                     <connections>
