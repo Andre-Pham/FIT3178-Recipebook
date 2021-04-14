@@ -173,7 +173,6 @@ class CreateMealTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ADD_INGREDIENT, for: indexPath)
             
             cell.textLabel?.text = "Add Ingredient"
-            cell.textLabel?.textColor = UIColor(named: "defaultCellContent")
             
             return cell
         }
