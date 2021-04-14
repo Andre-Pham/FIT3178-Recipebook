@@ -30,6 +30,7 @@ class CreateMealTableViewController: UITableViewController {
     var mealName: String = ""
     var mealInstructions: String = ""
     var mealIngredients: [IngredientMeasurementData] = []
+    var savedMealToEdit: Meal? = nil
     
     // MARK: - Methods
 
@@ -238,11 +239,24 @@ class CreateMealTableViewController: UITableViewController {
         }
         
         // Save to core data
-        if let newMeal = databaseController?.addMeal(name: self.mealName, instructions: self.mealInstructions) {
+        if let savedMeal = savedMealToEdit {
+            // Already saved meal being edited
+            databaseController?.editSavedMeal(meal: savedMeal, newName: self.mealName, newInstructions: self.mealInstructions)
+            for ingredient in savedMeal.ingredients?.allObjects as! [IngredientMeasurement] {
+                let _ = databaseController?.removeIngredientMeasurementFromMeal(ingredientMeasurement: ingredient, meal: savedMeal)
+            }
             for ingredient in self.mealIngredients {
-                let name = ingredient.name!
-                let quantity = ingredient.quantity!
-                let _ = databaseController?.addIngredientMeasurementToMeal(name: name, quantity: quantity, meal: newMeal)
+                let _ = databaseController?.addIngredientMeasurementToMeal(name: ingredient.name!, quantity: ingredient.quantity!, meal: savedMeal)
+            }
+        }
+        else {
+            // New meal being saved
+            if let newMeal = databaseController?.addMeal(name: self.mealName, instructions: self.mealInstructions) {
+                for ingredient in self.mealIngredients {
+                    let name = ingredient.name!
+                    let quantity = ingredient.quantity!
+                    let _ = databaseController?.addIngredientMeasurementToMeal(name: name, quantity: quantity, meal: newMeal)
+                }
             }
         }
         

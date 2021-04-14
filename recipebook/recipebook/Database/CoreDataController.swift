@@ -189,6 +189,11 @@ extension CoreDataController: DatabaseProtocol {
         meal.removeFromIngredients(ingredientMeasurement)
     }
     
+    func editSavedMeal(meal: Meal, newName: String, newInstructions: String) {
+        meal.name = newName
+        meal.instructions = newInstructions
+    }
+    
 }
 
 extension CoreDataController: NSFetchedResultsControllerDelegate {

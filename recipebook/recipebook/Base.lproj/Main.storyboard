@@ -50,6 +50,7 @@
                                 <connections>
                                     <outlet property="labelMealDescription" destination="S1h-BN-IgM" id="uzV-Qe-8dF"/>
                                     <outlet property="labelMealTitle" destination="0Ua-wt-e3S" id="g6X-6w-DbB"/>
+                                    <segue destination="N5E-7c-iyK" kind="show" identifier="myMealsSegue" id="eEv-ha-ylB"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mealCountCell" textLabel="Q4i-Uy-SL1" rowHeight="50" style="IBUITableViewCellStyleDefault" id="Izw-QF-9Wq">
@@ -389,7 +390,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="4Tm-Fj-NiG"/>
+        <segue reference="eEv-ha-ylB"/>
     </inferredMetricsTieBreakers>
     <resources>
         <systemColor name="labelColor">

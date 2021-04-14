@@ -173,6 +173,26 @@ class MyMealsTableViewController: UITableViewController {
         task.resume()
     }
     
+    /// Transfers the name, instructions and ingredients of the selected meal to the CreateMealTableViewController when the user travels there
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "myMealsSegue" {
+            // Define meal from cell being selected
+            // https://stackoverflow.com/questions/44706806/how-do-i-use-prepare-segue-with-tableview-cell
+            let meal = self.shownMeals[tableView.indexPathForSelectedRow!.row]
+            
+            // Define the destination ViewController to assign its properties
+            let destination = segue.destination as! CreateMealTableViewController
+            
+            // Assign properties to the destination ViewController
+            destination.mealName = meal.name ?? ""
+            destination.mealInstructions = meal.instructions ?? ""
+            for ingredient in meal.ingredients?.allObjects as! [IngredientMeasurement] {
+                destination.mealIngredients.append(IngredientMeasurementData(name: ingredient.name ?? "", quantity: ingredient.quantity ?? ""))
+            }
+            destination.savedMealToEdit = meal
+        }
+    }
+    
 }
 
 // MARK: - DatabaseListener Extension
