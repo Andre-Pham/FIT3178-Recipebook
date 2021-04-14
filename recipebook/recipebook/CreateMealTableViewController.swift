@@ -241,16 +241,22 @@ class CreateMealTableViewController: UITableViewController {
         // Save to core data
         if let savedMeal = savedMealToEdit {
             // Already saved meal being edited
+            
+            // Change the saved meal's name and instructions
             databaseController?.editSavedMeal(meal: savedMeal, newName: self.mealName, newInstructions: self.mealInstructions)
+            
+            // Remove all of the saved meal's ingredients
             for ingredient in savedMeal.ingredients?.allObjects as! [IngredientMeasurement] {
                 let _ = databaseController?.removeIngredientMeasurementFromMeal(ingredientMeasurement: ingredient, meal: savedMeal)
             }
+            // Re-add all the current ingredients to the saved meal
             for ingredient in self.mealIngredients {
                 let _ = databaseController?.addIngredientMeasurementToMeal(name: ingredient.name!, quantity: ingredient.quantity!, meal: savedMeal)
             }
         }
         else {
             // New meal being saved
+            
             if let newMeal = databaseController?.addMeal(name: self.mealName, instructions: self.mealInstructions) {
                 for ingredient in self.mealIngredients {
                     let name = ingredient.name!
