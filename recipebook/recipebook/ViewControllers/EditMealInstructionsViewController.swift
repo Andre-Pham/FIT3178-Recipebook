@@ -28,7 +28,11 @@ class EditMealInstructionsViewController: UIViewController {
         super.viewDidLoad()
         
         // Load name from CreateMealTableViewController
-        mealInstructionsTextField.text = self.previousMealInstructions
+        self.mealInstructionsTextField.text = self.previousMealInstructions
+        
+        // Add support for dynamic typing
+        self.mealInstructionsTextField?.font = CustomFont.setBodyFont()
+        self.mealInstructionsTextField?.adjustsFontForContentSizeCategory = true
         
         // Format text field
         self.mealInstructionsTextField.layer.cornerRadius = 10

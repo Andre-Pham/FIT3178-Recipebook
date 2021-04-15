@@ -102,7 +102,10 @@ class CreateMealTableViewController: UITableViewController {
         // Format headers
         let header = view as! UITableViewHeaderFooterView
         header.textLabel?.textColor = UIColor(named: "titleColour")
-        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+        header.textLabel?.font = CustomFont.setSubtitleFont()
+        // Add support for dynamic typing
+        header.textLabel?.adjustsFontForContentSizeCategory = true
+        
         // This changes the headers to lowercase
         switch section {
         case SECTION_MEAL_NAME:
@@ -164,6 +167,12 @@ class CreateMealTableViewController: UITableViewController {
                 cell.textLabel?.textColor = UIColor.label
                 cell.detailTextLabel?.text = ingredient.quantity
             }
+            
+            // Add support for dynamic typing
+            cell.textLabel?.font = CustomFont.setBodyFont()
+            cell.textLabel?.adjustsFontForContentSizeCategory = true
+            cell.detailTextLabel?.font = CustomFont.setBodyFont()
+            cell.detailTextLabel?.adjustsFontForContentSizeCategory = true
             
             return cell
         }

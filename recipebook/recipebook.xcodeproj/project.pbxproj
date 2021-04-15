@@ -39,6 +39,7 @@
 		65AFBDD92621FBEB0039CB66 /* MealRootWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDD82621FBEB0039CB66 /* MealRootWebData.swift */; };
 		65AFBDDC2621FC890039CB66 /* MealWebData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDDB2621FC890039CB66 /* MealWebData.swift */; };
 		65AFBDDF262203120039CB66 /* MealData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBDDE262203120039CB66 /* MealData.swift */; };
+		65AFBE012628107D0039CB66 /* CustomFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AFBE002628107D0039CB66 /* CustomFont.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -76,6 +77,7 @@
 		65AFBDD82621FBEB0039CB66 /* MealRootWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealRootWebData.swift; sourceTree = "<group>"; };
 		65AFBDDB2621FC890039CB66 /* MealWebData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealWebData.swift; sourceTree = "<group>"; };
 		65AFBDDE262203120039CB66 /* MealData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealData.swift; sourceTree = "<group>"; };
+		65AFBE002628107D0039CB66 /* CustomFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomFont.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +126,7 @@
 				65AFBD80261DCBA10039CB66 /* EditMealDelegate.swift */,
 				65AFBDC626202B500039CB66 /* IngredientMeasurementData.swift */,
 				65AFBDDE262203120039CB66 /* MealData.swift */,
+				65AFBE002628107D0039CB66 /* CustomFont.swift */,
 			);
 			path = recipebook;
 			sourceTree = "<group>";
@@ -262,6 +265,7 @@
 				65AFBDA0261F73780039CB66 /* MulticastDelegate.swift in Sources */,
 				65AFBDC0261F78C10039CB66 /* Meal+CoreDataClass.swift in Sources */,
 				65AFBD72261B13A00039CB66 /* SearchMealsTableViewController.swift in Sources */,
+				65AFBE012628107D0039CB66 /* CustomFont.swift in Sources */,
 				65AFBDA4261F743F0039CB66 /* DatabaseProtocol.swift in Sources */,
 				65AFBD8E261F445C0039CB66 /* RecipebookDataModel.xcdatamodeld in Sources */,
 				65AFBDD6262091A10039CB66 /* IngredientWebData.swift in Sources */,

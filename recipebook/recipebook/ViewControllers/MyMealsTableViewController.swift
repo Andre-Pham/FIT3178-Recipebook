@@ -109,6 +109,10 @@ class MyMealsTableViewController: UITableViewController {
                 cell.textLabel?.text = text
             }
             
+            // Add support for dynamic typing
+            cell.textLabel?.font = CustomFont.setBodyFont()
+            cell.textLabel?.adjustsFontForContentSizeCategory = true
+            
             return cell
         }
     }

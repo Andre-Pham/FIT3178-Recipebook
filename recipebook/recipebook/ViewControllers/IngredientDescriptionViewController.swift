@@ -26,5 +26,9 @@ class IngredientDescriptionViewController: UIViewController {
         // Displays to user the ingredient name and description
         self.title = self.ingredient?.name
         self.ingredientDescriptionLabel.text = self.ingredient?.ingredientDescription
+        
+        // Add support for dynamic typing
+        self.ingredientDescriptionLabel?.font = CustomFont.setBodyFont()
+        self.ingredientDescriptionLabel?.adjustsFontForContentSizeCategory = true
     }
 }
