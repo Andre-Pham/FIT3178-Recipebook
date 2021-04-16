@@ -316,7 +316,7 @@ extension CreateMealTableViewController: EditMealDelegate {
     
     /// Delegate function to update the meal name
     func updateMealName(_ newMealName: String) {
-        self.mealName = newMealName
+        self.mealName = newMealName.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: SECTION_MEAL_NAME)) {
             cell.textLabel?.text = newMealName
@@ -326,7 +326,7 @@ extension CreateMealTableViewController: EditMealDelegate {
     
     /// Delegate function to update the meal instructions
     func updateMealInstructions(_ newMealInstructions: String) {
-        self.mealInstructions = newMealInstructions
+        self.mealInstructions = newMealInstructions.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if let cell = tableView.cellForRow(at: IndexPath(row: 0, section: SECTION_MEAL_INSTRUCTIONS)) {
             cell.textLabel?.text = newMealInstructions
