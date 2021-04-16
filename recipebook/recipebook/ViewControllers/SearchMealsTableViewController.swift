@@ -24,6 +24,7 @@ class SearchMealsTableViewController: UITableViewController {
     
     // Other properties
     var shownMeals: [MealData] = []
+    var showNewMealButton = false
     
     // MARK: - Methods
 
@@ -101,16 +102,18 @@ class SearchMealsTableViewController: UITableViewController {
                         let mealInstructions = mealWebData.mealInstructions ?? ""
                         self.shownMeals.append(MealData(name: mealName, instructions: mealInstructions, ingredients: mealWebData.mealIngredients))
                     }
-                    
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
                 }
-                // Notify user if no results were found
                 DispatchQueue.main.async {
+                    // Notify user if no results were found
                     if self.shownMeals.count == 0 {
                         Popup.displayPopup(title: "No Results", message: "No results matched \"\(searchText)\".", viewController: self)
                     }
+                    
+                    // Show button to create new empty meal
+                    self.showNewMealButton = true
+                    
+                    // Shows new empty meal button, and any recipes found
+                    self.tableView.reloadData()
                 }
             }
             catch let err {
@@ -136,8 +139,11 @@ class SearchMealsTableViewController: UITableViewController {
             // Cell for each shown meal
             return self.shownMeals.count
         case SECTION_NEW_MEAL:
-            // Cell that when selected, creates a new blank meal
-            return 1
+            // Cell only shows up after a search
+            if self.showNewMealButton {
+                return 1
+            }
+            return 0
         default:
             return 0
         }
