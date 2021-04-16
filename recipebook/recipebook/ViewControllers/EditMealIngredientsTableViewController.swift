@@ -81,6 +81,10 @@ class EditMealIngredientsTableViewController: UITableViewController {
         if ingredient.ingredientDescription == "" {
             cell.accessoryType = UITableViewCell.AccessoryType.none
         }
+        // Add accessory buttons to ingredients with a description
+        else {
+            cell.accessoryType = UITableViewCell.AccessoryType.detailButton
+        }
         
         return cell
     }
